@@ -1,9 +1,14 @@
 # You want latexmk to *always* run, because make does not have all the info.
 .PHONY: 
 
+handout_latex_files  = handout.tex
+
+trainer_output_files = $(addprefix trainer_, $(addsuffix .pdf, $(basename $(handout_latex_files))))
+trainee_output_files = $(addprefix trainee_, $(addsuffix .pdf, $(basename $(handout_latex_files))))
+
 # First rule should always be the default "all" rule, so both "make all" and
 # "make" will invoke it.
-all: trainee_example.pdf trainer_example.pdf
+all: $(trainer_output_files) $(trainee_output_files)
 
 # CUSTOM BUILD RULES
 
@@ -35,7 +40,7 @@ trainer_%.pdf: %.tex
 	latexmk -pdf -jobname=$(basename $@) -pdflatex='pdflatex -halt-on-error %O %S -synctex=1 -interaction=nonstopmode --src-specials' -quiet -f -use-make $<
 	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $<
 
-clean:
-	latexmk -C -jobname=trainee_example example.tex
-	latexmk -C -jobname=trainer_example example.tex
-	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' example.tex
+clean: 
+	latexmk -C -jobname=trainee_$(basename $(handout_latex_files)) $(handout_latex_files)
+	latexmk -C -jobname=trainer_$(basename $(handout_latex_files)) $(handout_latex_files)
+	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $(handout_latex_files)
