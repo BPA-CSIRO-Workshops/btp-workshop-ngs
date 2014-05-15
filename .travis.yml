@@ -1,9 +1,4 @@
-# This code
-env: PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH CTAN_MIRROR_URL='http://mirror.ctan.org'
 before_script:
-  - wget --continue "${CTAN_MIRROR_URL}/systems/texlive/tlnet/install-tl-unx.tar.gz"
-  - tar xzf install-tl-unx.tar.gz && rm install-tl-unx.tar.gz
-  - sudo ./install-tl-*/install-tl -repository "${CTAN_MIRROR_URL}/systems/texlive/tlnet" -no-gui -profile texlive.profile
-  - sudo /usr/local/texlive/2013/bin/x86_64-linux/tlmgr -repository "${CTAN_MIRROR_URL}/systems/texlive/tlnet" install mdframed preprint enumitem etoolbox titlesec xmpincl comment latexmk lm memoir listings xcolor url l3packages l3kernel placeins microtype float latex-bin fancyhdr graphics psnfss pdftex-def oberdiek colortbl hyperref
+  - ./install_latex.sh
 script: "make"
 
