@@ -5,7 +5,6 @@
 # script.
 # A list of mirrors can be found at http://ctan.org/mirrors
 
-export PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH
 DEFAULT_CTAN_MIRROR_URL='http://mirror.ctan.org'
 
 wget \
@@ -54,7 +53,7 @@ packages=(
   colortbl
   hyperref
 )
-tlmgr \
+/usr/local/texlive/2013/bin/x86_64-linux/tlmgr \
   -repository ${CTAN_MIRROR_URL:=DEFAULT_CTAN_MIRROR_URL}/systems/texlive/tlnet \
   install \
     ${packages[@]}
