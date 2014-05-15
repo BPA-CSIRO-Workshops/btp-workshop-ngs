@@ -5,7 +5,7 @@
 # script.
 # A list of mirrors can be found at http://ctan.org/mirrors
 
-PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH
+export PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH
 DEFAULT_CTAN_MIRROR_URL='http://mirror.ctan.org'
 
 wget \
