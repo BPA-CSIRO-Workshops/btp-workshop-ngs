@@ -1,9 +1,11 @@
 #!/bin/bash
-# Set CTAN_MIRROR_URL to be somewhere close to you. A list of mirrors can
-# be found at http://ctan.org/mirrors
+# By default, the main CTAN mirror is used to fetch packages from. If this
+# is distant from you, or you have a faster local mirror simply override
+# this by setting the CTAN_MIRROR_URL environmental variable outside this
+# script.
+# A list of mirrors can be found at http://ctan.org/mirrors
 
-CTAN_MIRROR_URL='http://mirror.aarnet.edu.au/pub/CTAN'
-CTAN_MIRROR_URL='http://mirror.ctan.org'
+${CTAN_MIRROR_URL:='http://mirror.ctan.org'}
 
 PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH
 
