@@ -1,5 +1,5 @@
 env: PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH CTAN_MIRROR_URL='http://mirror.aarnet.edu.au/pub/CTAN'
 before_script:
-  - sudo bash install_latex.sh
+  - sudo bash ./install_latex.sh
 script: "make"
 
