@@ -16,7 +16,7 @@ tar \
   --extract \
   --gunzip \
   --directory /tmp \
-  --file install-tl-unx.tar.gz
+  --file /tmp/install-tl-unx.tar.gz
 
 # Install texlive using the supplied texlive.profile (this just installs a
 # basic LaTeX environment
