@@ -1,4 +1,5 @@
+env: CTAN_MIRROR_URL='http://mirror.aarnet.edu.au/pub/CTAN'
 before_script:
-  - CTAN_MIRROR_URL='http://mirror.aarnet.edu.au/pub/CTAN' bash ./install_latex.sh
+  - bash ./install_latex.sh
 script: "make"
 
