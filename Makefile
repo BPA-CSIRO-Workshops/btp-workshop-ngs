@@ -34,7 +34,8 @@ trainer_%.pdf: %.tex
 	/bin/sed -i -e 's@^\\usepackage{btp}@\\usepackage[trainermanual]{btp}@' $<
 	latexmk -pdf -jobname=$(basename $@) -pdflatex='pdflatex -halt-on-error %O %S -synctex=1 -interaction=nonstopmode --src-specials' -quiet -f -use-make $<
 	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $<
+
 clean:
-	latexmk -CA -jobname=trainee_example example.tex
-	latexmk -CA -jobname=trainer_example example.tex
+	latexmk -C -jobname=trainee_example example.tex
+	latexmk -C -jobname=trainer_example example.tex
 	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' example.tex
