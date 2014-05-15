@@ -20,7 +20,7 @@ tar \
 
 # Install texlive using the supplied texlive.profile (this just installs a
 # basic LaTeX environment
-sudo . /tmp/install-tl-*/install-tl \
+/tmp/install-tl-*/install-tl \
   -repository ${CTAN_MIRROR_URL:=DEFAULT_CTAN_MIRROR_URL}/systems/texlive/tlnet \
   -no-gui \
   -profile texlive.profile
@@ -54,7 +54,7 @@ packages=(
   colortbl
   hyperref
 )
-sudo tlmgr \
+tlmgr \
   -repository ${CTAN_MIRROR_URL:=DEFAULT_CTAN_MIRROR_URL}/systems/texlive/tlnet \
   install \
     ${packages[@]}
