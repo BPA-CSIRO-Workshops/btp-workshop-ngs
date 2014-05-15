@@ -5,12 +5,13 @@
 # script.
 # A list of mirrors can be found at http://ctan.org/mirrors
 
+PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH
 DEFAULT_CTAN_MIRROR_URL='http://mirror.ctan.org'
 
 wget \
   --continue \
   --directory-prefix /tmp \
-  ${CTAN_MIRROR_URL:=DEFAULT_CTAN_MIRROR_URL}/systems/texlive/tlnet/install-tl-unx.tar.gz
+  ${CTAN_MIRROR_URL:=$DEFAULT_CTAN_MIRROR_URL}/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar \
   --extract \
   --gunzip \
@@ -20,7 +21,7 @@ tar \
 # Install texlive using the supplied texlive.profile (this just installs a
 # basic LaTeX environment
 /tmp/install-tl-*/install-tl \
-  -repository ${CTAN_MIRROR_URL:=DEFAULT_CTAN_MIRROR_URL}/systems/texlive/tlnet \
+  -repository ${CTAN_MIRROR_URL:=$DEFAULT_CTAN_MIRROR_URL}/systems/texlive/tlnet \
   -no-gui \
   -profile texlive.profile
 
@@ -53,7 +54,7 @@ packages=(
   colortbl
   hyperref
 )
-/usr/local/texlive/2013/bin/x86_64-linux/tlmgr \
-  -repository ${CTAN_MIRROR_URL:=DEFAULT_CTAN_MIRROR_URL}/systems/texlive/tlnet \
+tlmgr \
+  -repository ${CTAN_MIRROR_URL:=$DEFAULT_CTAN_MIRROR_URL}/systems/texlive/tlnet \
   install \
     ${packages[@]}
