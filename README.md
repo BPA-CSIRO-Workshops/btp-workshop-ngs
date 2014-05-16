@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/BioplatformsAustralia/handout-template.png?branch=master)](https://travis-ci.org/BioplatformsAustralia/handout-template)
+[![Build Status](https://travis-ci.org/BioplatformsAustralia/ngs-handout.png?branch=master)](https://travis-ci.org/BioplatformsAustralia/ngs-handout)
 
 Purpose
 =======
