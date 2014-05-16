@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/BioplatformsAustralia/LaTeX-style.png?branch=master)](https://travis-ci.org/BioplatformsAustralia/LaTeX-style)
+[![Build Status](https://travis-ci.org/BioplatformsAustralia/handout-template.png?branch=master)](https://travis-ci.org/BioplatformsAustralia/handout-template)
 
 Purpose
 =======
