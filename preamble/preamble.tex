@@ -1,0 +1,99 @@
+%
+% Start: General Information describing the workshop and the structure of the handouts
+%
+\newpage
+
+% \section{Do's and Don'ts of the Workshop}
+% TODO Add do's and don'ts e.g. email, social media etc 
+
+\section{Providing Feedback}
+While we endeavour to deliver a workshop with quality content and documentation
+in a venue conducive to an exciting, well run hands-on workshop with a bunch of
+knowledgeable and likable trainers, we know there are things we could do better.
+
+Whilst we want to know what didn't quite hit the mark for you, what would be
+most helpful and least depressing, would be for you to provide ways to improve
+the workshop. i.e. constructive feedback. After all, if we knew something wasn't
+going to work, we wouldn't have done it or put it into the workshop in the first
+place! Remember, we're experts in the field of bioinformatics not experts in the
+field of biology!
+
+Clearly, we also want to know what we did well! This gives us that ``feel good''
+factor which will see us through those long days and nights in the lead up to
+such hands-on workshops!
+
+With that in mind, we'll provide three really high tech mechanism through which you
+can provide anonymous feedback during the workshop:
+\begin{enumerate}
+  \item A sheet of paper, from a flip-chart, sporting a ``happy'' face and a
+  ``not so happy'' face. Armed with a stack of colourful post-it notes, your
+  mission is to see how many comments you can stick on the ``happy'' side!
+  
+  \item Some empty ruled pages at the back of this handout. Use them for your
+  own personal notes or for write specific comments/feedback about the workshop
+  as it progresses.
+  
+  \item An online post-workshop evaluation survey. We'll ask you to complete
+  this before you leave. If you've used the blank pages at the back of this
+  handout to make feedback notes, you'll be able to provide more specific and
+  helpful feedback with the least amount of brain-drain!
+\end{enumerate}
+
+\section{Document Structure}
+We have provided you with an electronic copy of the workshop's hands-on tutorial documents.
+We have done this for two reasons: 1) you will have something to take away with you at the 
+end of the workshop, and 2) you can save time (mis)typing commands on the command line by using
+copy-and-paste.
+
+\emph{We advise you to use Acrobat Reader to view the PDF. This is because it
+properly supports some features we have implemented to ensure that
+copy-and-paste of commands works as expected. This includes the appropriate
+copy-and-paste of special characters like tilde and hyphens as well as skipping
+line numbers for easy copy-and-past of whole code blocks.}
+
+\begin{warning}
+While you could fly through the hands-on sessions doing
+copy-and-paste you will learn more if you take the time, saved from not having to type all those
+commands, to understand what each command is doing!
+\end{warning}
+
+The commands to enter at a terminal look something like this:
+\begin{lstlisting}
+tophat --solexa-quals -g 2 --library-type fr-unstranded -j annotation/Danio_rerio.Zv9.66.spliceSites -o tophat/ZV9_2cells genome/ZV9 data/2cells_1.fastq data/2cells_2.fastq
+\end{lstlisting}  
+
+The following styled code is not to be entered at a terminal, it is simply to
+show you the syntax of the command. You must use your own judgement to
+substitute in the correct arguments, options, filenames etc
+
+\begin{lstlisting}[style=command_syntax]
+tophat [options]* <index_base> <reads_1> <reads_2>
+\end{lstlisting}
+
+The following is an example how of R commands are styled:
+
+\begin{lstlisting}[style=R]
+R --no-save
+library(plotrix) 
+data <- read.table("run_25/stats.txt", header=TRUE) 
+weighted.hist(data$short1_cov+data$short2_cov, data$lgth, breaks=0:70)
+q()
+\end{lstlisting}
+
+The following icons are used in the margin, throughout the documentation to help
+you navigate around the document more easily:
+
+% TODO limit the use of some icons throughout as some are clearly overused and confuse the eye
+\hspace*{.2cm}\vcent{\includegraphics[height=1cm]{./icons/info.png}} Important\\
+\hspace*{.2cm}\vcent{\includegraphics[height=1cm]{./icons/notes.png}} For reference\\
+\hspace*{.2cm}\vcent{\includegraphics[height=1cm]{./icons/steps.png}} Follow these steps\\
+\hspace*{.2cm}\vcent{\includegraphics[height=1cm]{./icons/questions.png}} Questions to answer\\
+\hspace*{.2cm}\vcent{\includegraphics[height=1cm]{./icons/warning.png}} Warning - STOP and read\\
+\hspace*{.2cm}\vcent{\includegraphics[height=1cm]{./icons/bonus1.png}} Bonus exercise for fast learners\\
+\hspace*{.2cm}\vcent{\includegraphics[height=1cm]{./icons/bonus2.png}} Advanced exercise for super-fast learners\\
+
+\section{Resources Used}
+We have provided you with an environment which contains all the tools and data
+you need for the duration of this workshop. However, we also provide details
+about the tools and data used by each module at the start of the respective
+module documentation.
