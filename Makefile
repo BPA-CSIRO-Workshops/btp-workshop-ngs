@@ -1,7 +1,7 @@
 # You want latexmk to *always* run, because make does not have all the info.
 .PHONY: 
 
-handout_latex_files  = handout.tex
+handout_latex_files  = example.tex
 
 trainer_output_files = $(addprefix trainer_, $(addsuffix .pdf, $(basename $(handout_latex_files))))
 trainee_output_files = $(addprefix trainee_, $(addsuffix .pdf, $(basename $(handout_latex_files))))
