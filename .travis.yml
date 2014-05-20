@@ -1,5 +1,9 @@
 env: PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH
 before_script:
   - sudo -E bash ./install_latex.sh
-script: "make"
+script: "make && deploy-ghpages.sh"
 
+env:
+  global:
+    - GH_REF: github.com/BioplatformsAustralia/ngs-handout.git
+    - secure: secure_token_generated_by_travis-encrypt
