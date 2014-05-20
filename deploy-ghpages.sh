@@ -1,11 +1,14 @@
 #!/bin/bash
-rm -rf out || exit 0
-mkdir gh-pages
+# Get to the Travis build directory, configure git and clone the repo
+cd $HOME
+git config --global user.email "travis@travis-ci.org"
+git config --global user.name "travis-ci"
+ clone --quiet --branch=gh-pages https://${GH_TOKEN}@${GH_REF} gh-pages > /dev/null
+
+# Commit and Push the Changes
 cd gh-pages
-git init
-git config user.name "Travis-CI"
-git config user.email "travis@nodemeatspace.com"
-cp ../traine{e,r}_*.pdf ./
-git add .
-git commit -m "Deployed Updated PDFs to Github Pages"
-git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages > /dev/null 2>&1
+git rm -f ./pdfs-latest/*.pdf
+cp -Rf $HOME/traine{e,r}_*.pdf ./pdfs-latest
+git add -f .
+git commit -m "Lastest PDFs on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
+git push -fq origin gh-pages > /dev/null
