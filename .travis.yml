@@ -6,4 +6,4 @@ script: "make && deploy-ghpages.sh"
 env:
   global:
     - GH_REF: github.com/BioplatformsAustralia/ngs-handout.git
-    - secure: secure_token_generated_by_travis-encrypt
+    - secure: "j3WZbibfUwGeqa5YLYnBnie6PA/RKPJa1wQ8dJuSnyrGFkMfc5wxrcEGa61RZLlD7mQIaUpQnsGPToysZpTISo77bJA3xPOPl4162FVOdmbgVEfCP/lyJyYiaTG29yk47qB4YT9SGDsc0m8EkYxsWJ9VlaXC4JB2VqQjej8HCpw="
