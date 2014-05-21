@@ -31,14 +31,14 @@ Installing the LateX Environment
 In order to build a PDF from LaTeX source files. You'll first need to install LaTeX
 and some other LaTeX packages to get this style file to work.
 
-We provide a script (`texlive_install/install.sh`) which downloads and installs texlive,
+We provide a script (`developers/texlive_install.sh`) which downloads and installs texlive,
 as well as all the packages required for this style. Simply clone this
 repository and run that script and you should have LaTeX ready to go in just
 a few minutes:
 ```bash
 git clone https://github.com/BioplatformsAustralia/LaTeX-style.git
-cd LaTeX-style.git
-sudo ./texlive_install/install.sh
+cd LaTeX-style/developers
+sudo ./texlive_install.sh
 ```
 
 By default, the above script will download LaTeX packages from the default CTAN mirror.
@@ -47,7 +47,9 @@ to where you are. To change the mirror, simply set the environmental variable
 `CTAN_MIRROR_URL` to point to your favourite CTAN mirror (http://ctan.org/mirrors):
 ```bash
 export CTAN_MIRROR_URL='http://mirror.aarnet.edu.au/pub/CTAN'
-sudo -E ./texlive_install/install.sh
+git clone https://github.com/BioplatformsAustralia/LaTeX-style.git
+cd LaTeX-style/developers
+sudo -E ./texlive_install.sh
 ```
 
 Credits
