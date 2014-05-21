@@ -2,7 +2,7 @@ env:
   global:
     - PATH: /usr/local/texlive/2013/bin/x86_64-linux:$PATH
     - GH_REF: github.com/BioplatformsAustralia/ngs-handout.git
-    - secure: "j3WZbibfUwGeqa5YLYnBnie6PA/RKPJa1wQ8dJuSnyrGFkMfc5wxrcEGa61RZLlD7mQIaUpQnsGPToysZpTISo77bJA3xPOPl4162FVOdmbgVEfCP/lyJyYiaTG29yk47qB4YT9SGDsc0m8EkYxsWJ9VlaXC4JB2VqQjej8HCpw="
+    - secure: "hS8+EcxCvJxtoFbrME0Vrvl4RMD/zs1FZCSDdVGnkkuLtZvWw3PJSyAfrTYo4pf02+kUgz8524fv6zy+1XKDyWFxtni2oDAg2yV/9tTXAujUJNDlKPz7i7Eds8pR0y0J/hI7hvuYFH41ZNrywPEc0F8VmEE/3mQrDEPyGNAi9tU="
 before_script:
   - sudo -E bash ./install_latex.sh
 script: "make && bash deploy-ghpages.sh"
