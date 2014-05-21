@@ -5,4 +5,4 @@ env:
     - secure: "j3WZbibfUwGeqa5YLYnBnie6PA/RKPJa1wQ8dJuSnyrGFkMfc5wxrcEGa61RZLlD7mQIaUpQnsGPToysZpTISo77bJA3xPOPl4162FVOdmbgVEfCP/lyJyYiaTG29yk47qB4YT9SGDsc0m8EkYxsWJ9VlaXC4JB2VqQjej8HCpw="
 before_script:
   - cd ./developers/ && sudo -E ./texlive_install.sh && cd ../
-script: "make && ./developers/deploy-ghpages.sh"
+script: "make && bash ./developers/deploy-ghpages.sh"
