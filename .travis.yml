@@ -1,5 +1,8 @@
-env: PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH
+env:
+  global:
+    - PATH: /usr/local/texlive/2013/bin/x86_64-linux:$PATH
+    - GH_REF: github.com/BioplatformsAustralia/handout-template.git
+    - secure: "j3WZbibfUwGeqa5YLYnBnie6PA/RKPJa1wQ8dJuSnyrGFkMfc5wxrcEGa61RZLlD7mQIaUpQnsGPToysZpTISo77bJA3xPOPl4162FVOdmbgVEfCP/lyJyYiaTG29yk47qB4YT9SGDsc0m8EkYxsWJ9VlaXC4JB2VqQjej8HCpw="
 before_script:
-  - sudo -E bash ./install_latex.sh
-script: "make"
-
+  - sudo -E ./texlive_install/install.sh
+script: "make && bash deploy-ghpages.sh"
