@@ -1,15 +1,34 @@
 [![Build Status](https://travis-ci.org/BioplatformsAustralia/handout-template.png?branch=master)](https://travis-ci.org/BioplatformsAustralia/handout-template)
 
-Project Website
-===============
-You can find full details of what this repository is all about how to use it at:
-http://bioplatformsaustralia.github.io/handout-template/
-
 Purpose
 =======
 This repository contains style information for use with LaTeX to generate
 consistently styled handout documents for use in hands-on bioinformatics
 training workshops.
+
+You can find full details of what this repository is all about how to use it at:
+http://bioplatformsaustralia.github.io/handout-template/
+
+Building PDFs from LaTeX Source
+===============================
+First you need to install texlive and a bunch of LaTeX packages. To make this
+easy we have provided a script to do this:
+```bash
+cd developers
+sudo ./texlive_install.sh
+cd ../
+```
+
+Secondly, you need to add the location of the texlive binary's to your PATH. If
+you installed texlive using the supplied script, the following should work:
+```bash
+export PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH
+```
+
+Now you're ready to build the PDFs using the supplied Makefile:
+```bash
+make
+```
 
 Credits
 =======
