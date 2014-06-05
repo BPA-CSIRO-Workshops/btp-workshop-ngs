@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/BioplatformsAustralia/handout-template.png?branch=master)](https://travis-ci.org/BioplatformsAustralia/handout-template)
+[![Build Status](https://travis-ci.org/BPA-CSIRO-Workshops/handout-template.png?branch=master)](https://travis-ci.org/BPA-CSIRO-Workshops/handout-template)
 
 Purpose
 =======
@@ -7,7 +7,7 @@ consistently styled handout documents for use in hands-on bioinformatics
 training workshops.
 
 You can find full details of what this repository is all about how to use it at:
-http://bioplatformsaustralia.github.io/handout-template/
+http://BPA-CSIRO-Workshops.github.io/handout-template/
 
 Building PDFs from LaTeX Source
 ===============================
