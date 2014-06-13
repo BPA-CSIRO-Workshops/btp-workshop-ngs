@@ -5,6 +5,9 @@
 # script.
 # A list of mirrors can be found at http://ctan.org/mirrors
 
+# e.g. before running this script do:
+#   export CTAN_MIRROR_URL='http://mirror.aarnet.edu.au/pub/CTAN'
+
 wget \
   --continue \
   --directory-prefix /tmp \
