@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/BioplatformsAustralia/ngs-handout.png?branch=master)](https://travis-ci.org/BioplatformsAustralia/ngs-handout)
+[![Build Status](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout.png?branch=master)](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout)
 
 Purpose
 =======
