@@ -149,7 +149,7 @@ View the FastQC report file of the bad data using a web browser such as
 firefox.
 
 \begin{lstlisting}
-firefox bad_example_fastqc/fastqc_report.html &
+firefox bad_example_fastqc.html &
 \end{lstlisting}
 
 \end{steps}
@@ -251,7 +251,7 @@ View the FastQC report files \texttt{fastqc\_report.html} to see examples of a g
 quality data and compare the quality plot with that of the \texttt{bad\_example\_fastqc}.
 
 \begin{lstlisting}
-firefox good_example_fastqc/fastqc_report.html &
+firefox good_example_fastqc.html &
 \end{lstlisting}
 \end{bonus}
 
@@ -302,7 +302,7 @@ We used the following options in the command above:
 Run FastQC on the trimmed file and visualise the quality scores of the trimmed file.
 \begin{lstlisting}
 fastqc -f fastq bad_example_trimmed01.fastq
-firefox bad_example_trimmed01_fastqc/fastqc_report.html &
+firefox bad_example_trimmed01_fastqc.html &
 \end{lstlisting}
 
 The output should look like:
@@ -371,7 +371,7 @@ Run FastQC on the quality trimmed file and visualise the quality scores.
 
 \begin{lstlisting}
 fastqc -f fastq bad_example_quality_trimmed.fastq
-firefox bad_example_quality_trimmed_fastqc/fastqc_report.html &
+firefox bad_example_quality_trimmed_fastqc.html &
 \end{lstlisting}
 
 The output should look like:
@@ -431,6 +431,10 @@ Did you observe adapter sequences in the data?
 No. (Hint: look at the overrepresented sequences.
 \end{answer}
 
+How can you use -a option with fastqc ? (Hint: try fastqc -h).
+\begin{answer}
+Adaptors can be supplied in a file for screening.
+\end{answer}
 \end{questions}
 
 \begin{advanced}
@@ -490,7 +494,7 @@ various command-line tools available:
 \end{information}
 
 \begin{information}
-Picard 1.69 is installed on this system in \texttt{/usr/share/java/picard-1.69/}
+Picard is installed on this system in \texttt{/tools/Picard/picard-default}
 
 One of the Picard tools (MarkDuplicates) can be used to analyse and remove
 duplicates from the raw sequence data. The input for Picard is a sorted

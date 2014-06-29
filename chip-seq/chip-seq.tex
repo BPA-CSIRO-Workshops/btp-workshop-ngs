@@ -179,8 +179,8 @@ Choose the genome of interest (in this case, mouse) on the left side of the
 page, browse to any location in the genome or click one of the demo links
 provided on the web page.
 
-Click on the \textbf{Add your data} link on the left, then choose
-\textbf{Attach remote file}.
+Click on the \textbf{Manage your data} link on the left, then choose
+\textbf{Add your data} in the \textbf{Personal Data} tab.
 
 \end{steps}
 
@@ -210,13 +210,14 @@ Repeat the process for the gfp control sample, located at:
 
 \url{http://www.ebi.ac.uk/~remco/ChIP-Seq_course/gfp.bw}.
 
-If can not see your tracks: 
- Click on 'Configure this page' in left panel.
- In 'Configure region Overview' tab click on 'Ypur data' in left panel.
- Check the boxes in 'Enable/Disable all tracks' for you *.bw files by selecting 'wiggle plot in the pop up menu.
- 
-After uploading, choose \textbf{Configure this page}, and under \textbf{Your
-data} tick both boxes. Closing the window will save these changes.
+After uploading, to make sure your data is visible:
+\begin{itemize}
+        \item Switch to the \textbf{Configure Region Image} tab
+        \item Click \textbf{Your data} in the left panel
+        \item Choose each of the uploaded *.bw files to confirm the \textbf{Wiggle plot} in \textbf{Change track style} pop up menu has been choosen.
+        \item Closing the window will save these changes.
+
+\end{itemize}
 
 Go to a region on chromosome 1 (e.g. \texttt{1:34823162-35323161}), and zoom in and out
 to view the signal and peak regions. Be aware that the y-axis of each track is auto-scaled independently of each other,
@@ -273,9 +274,12 @@ using PeakAnalyzer.
 \end{information}
 
 \begin{steps}
-Go to the PeakAnalyzer directory and launch the program by typing:
+Go to the PeakAnalyzer tool directory:
 \begin{lstlisting}
-cd ~/ChIP-seq/PeakAnalyzer_1.4
+cd /tools/PeakAnalyzer/peakanalyzer-default
+\end{lstlisting}
+Launch the PeakAnalyzer program by typing:
+\begin{lstlisting}
 java -jar PeakAnalyzer.jar &
 \end{lstlisting}
 
