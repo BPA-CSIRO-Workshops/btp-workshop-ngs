@@ -1,5 +1,10 @@
 [![Build Status](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout.png?branch=master)](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout)
 
+Homepage and PDFs
+=================
+You can access the homepage, and up-to-date PDFs, for this project at
+http://bpa-csiro-workshops.github.io/ngs-handout/
+
 Purpose
 =======
 This repository contains style information for use with LaTeX to generate
