@@ -6,5 +6,5 @@ env:
 before_script:
   - cd ./developers/ && sudo -E ./texlive_install.sh && cd ../
 script: make
-after_sucess:
+after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then bash ./developers/deploy-ghpages.sh; fi
