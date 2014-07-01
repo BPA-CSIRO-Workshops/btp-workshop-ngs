@@ -1,8 +1,8 @@
 env:
   global:
     - PATH: /usr/local/texlive/2013/bin/x86_64-linux:$PATH
-    - GH_REF: github.com/BioplatformsAustralia/ngs-handout.git
-    - secure: "hS8+EcxCvJxtoFbrME0Vrvl4RMD/zs1FZCSDdVGnkkuLtZvWw3PJSyAfrTYo4pf02+kUgz8524fv6zy+1XKDyWFxtni2oDAg2yV/9tTXAujUJNDlKPz7i7Eds8pR0y0J/hI7hvuYFH41ZNrywPEc0F8VmEE/3mQrDEPyGNAi9tU="
+    - GH_REF: github.com/BPA-CSIRO-Workshops/ngs-handout.git
+    - secure: "J/oFevIbuIyl1P16qdSVaNeJ0P1rL5Hub92SlDcNmhZ6NGu7+9N43fDs+uf3ihCmu664wZDKzB8YACetOfZ+XrZ9M72IfI3CzA7OWrx8elsub+WvaaOeVp3D+tDgNzxhXVRVJl5jZMmgEh5KjZ6GNshuTEPrIN+14s8bR4CciEM="
 before_script:
-  - sudo -E bash ./install_latex.sh
-script: "make && bash deploy-ghpages.sh"
+  - cd ./developers/ && sudo -E ./texlive_install.sh && cd ../
+script: "make && bash ./developers/deploy-ghpages.sh"
