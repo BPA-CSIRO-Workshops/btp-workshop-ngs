@@ -1,7 +1,7 @@
 env:
   global:
-    - PATH: /usr/local/texlive/2013/bin/x86_64-linux:$PATH
-    - GH_REF: github.com/BPA-CSIRO-Workshops/ngs-handout.git
+    - PATH: /usr/local/texlive/bin/x86_64-linux:$PATH
+    - GH_REF: github.com/BPA-CSIRO-Workshops/handout-template.git
     - secure: "J/oFevIbuIyl1P16qdSVaNeJ0P1rL5Hub92SlDcNmhZ6NGu7+9N43fDs+uf3ihCmu664wZDKzB8YACetOfZ+XrZ9M72IfI3CzA7OWrx8elsub+WvaaOeVp3D+tDgNzxhXVRVJl5jZMmgEh5KjZ6GNshuTEPrIN+14s8bR4CciEM="
 before_script:
   - cd ./developers/ && sudo -E ./texlive_install.sh && cd ../

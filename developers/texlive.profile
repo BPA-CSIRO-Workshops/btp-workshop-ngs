@@ -2,13 +2,13 @@
 # It will NOT be updated and reflects only the
 # installation profile at installation time.
 selected_scheme scheme-basic
-TEXDIR /usr/local/texlive/2013
-TEXMFCONFIG ~/.texlive2013/texmf-config
+TEXDIR /usr/local/texlive
+TEXMFCONFIG ~/.texlive/texmf-config
 TEXMFHOME ~/texmf
 TEXMFLOCAL /usr/local/texlive/texmf-local
-TEXMFSYSCONFIG /usr/local/texlive/2013/texmf-config
-TEXMFSYSVAR /usr/local/texlive/2013/texmf-var
-TEXMFVAR ~/.texlive2013/texmf-var
+TEXMFSYSCONFIG /usr/local/texlive/texmf-config
+TEXMFSYSVAR /usr/local/texlive/texmf-var
+TEXMFVAR ~/.texlive/texmf-var
 binary_x86_64-linux 1
 collection-basic 1
 in_place 0
