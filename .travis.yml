@@ -5,4 +5,6 @@ env:
     - secure: "J/oFevIbuIyl1P16qdSVaNeJ0P1rL5Hub92SlDcNmhZ6NGu7+9N43fDs+uf3ihCmu664wZDKzB8YACetOfZ+XrZ9M72IfI3CzA7OWrx8elsub+WvaaOeVp3D+tDgNzxhXVRVJl5jZMmgEh5KjZ6GNshuTEPrIN+14s8bR4CciEM="
 before_script:
   - cd ./developers/ && sudo -E ./texlive_install.sh && cd ../
-script: "make && bash ./developers/deploy-ghpages.sh"
+script: make
+after_success:
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then bash ./developers/deploy-ghpages.sh; fi
