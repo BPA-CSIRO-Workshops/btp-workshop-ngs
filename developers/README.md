@@ -16,11 +16,14 @@ will be able to:
 ```bash
 # Clone the handout-template repository
 NEW_WORKSHOP_NAME='ngs'
-git clone https://github.com/BioplatformsAustralia/handout-template.git "${NEW_WORKSHOP_NAME}-handout"
+git clone https://github.com/BPA-CSIRO-Workshops/handout-template.git "${NEW_WORKSHOP_NAME}-handout"
 
+# Change the origin to be an upstream - that way you can pull in changes from the handout-template repo
 cd "${WORKSHOP_NAME}-handout"
 git remote rename origin upstream
-git remote add origin git@github.com:BioplatformsAustralia/ngs-handout.git
+
+# Add a new origin which you have write access to. This would look something a little like:
+git remote add origin git@github.com:${YOUR_GITHUB_USERNAME}/${NEW_WORKSHOP_NAME}-handout.git
 git push -u origin master
 ```
 
