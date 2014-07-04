@@ -1,3 +1,5 @@
+Table of Contents
+=================
 <!-- toc -->
 * [For Handout Document Developers](#for-handout-document-developers)
 * [Pulling in Changes from `handout-template`](#pulling-in-changes-from-handout-template)

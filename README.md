@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout.png?branch=master)](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout)
 
+Table of Contents
+=================
 <!-- toc -->
 * [Homepage and PDFs](#homepage-and-pdfs)
 * [Purpose](#purpose)
