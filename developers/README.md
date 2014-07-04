@@ -1,3 +1,9 @@
+<!-- toc -->
+* [For Handout Document Developers](#for-handout-document-developers)
+* [Pulling in Changes from `handout-template`](#pulling-in-changes-from-handout-template)
+* [Github API](#github-api)
+
+<!-- toc stop -->
 For Handout Document Developers
 ===============================
 If you're creating new workshop documentation, you will probably want to clone

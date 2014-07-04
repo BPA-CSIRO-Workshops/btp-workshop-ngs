@@ -1,5 +1,13 @@
 [![Build Status](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout.png?branch=master)](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout)
 
+<!-- toc -->
+* [Homepage and PDFs](#homepage-and-pdfs)
+* [Purpose](#purpose)
+* [Building PDFs from LaTeX Source](#building-pdfs-from-latex-source)
+* [Credits](#credits)
+* [License](#license)
+
+<!-- toc stop -->
 Homepage and PDFs
 =================
 You can access the homepage, and up-to-date PDFs, for this project at
