@@ -7,6 +7,7 @@
 \setModuleContributions{%
   Nathan S. Watson-Haigh \mailto{nathan.watson-haigh@awri.com.au} \\
   Sonika Tyagi \mailto{sonika.tyagi@agrf.org.au}%
+  Susan M Corley \mailto{susan}%
 }
 
 % Start: Module Title Page
@@ -23,6 +24,7 @@ After completing this practical the trainee should be able to:
   \item Perform transcript assembly using Cufflinks.
   \item Visualize transcript alignments and annotation in a genome browser such as IGV.
   \item Be able to identify differential gene expression between two experimental conditions.
+  \item Be familiar with R environment and be able to run R based RNA-seq packages.
 \end{itemize}
 
 \section{Resources You'll be Using}
@@ -43,11 +45,14 @@ After completing this practical the trainee should be able to:
     \url{http://www.broadinstitute.org/igv/}
   \item[DAVID Functional Analysis] \hfill\\
     \url{http://david.abcc.ncifcrf.gov/}
+  \item[edgeR pakcage] \hfill\\
+    \url{http://http://www.bioconductor.org/packages/release/bioc/html/edgeR.html/}
 \end{description}
 
 \subsection{Sources of Data}
 \url{http://www.ebi.ac.uk/ena/data/view/ERR022484}\\
 \url{http://www.ebi.ac.uk/ena/data/view/ERR022485}
+\url{http://www.pnas.org/content/suppl/2008/12/16/0807121105.DCSupplemental}
 
 \newpage
 
@@ -60,6 +65,8 @@ We will perform transcriptome reconstruction using Cufflinks and we will compare
 the gene expression between two different conditions in order to identify
 differentially expressed genes.
 
+In the second part of the tutorial we will also be demonstrating usage of R-based packages to perform differential expression analysis.
+We will be using edgeR for the demonstration. The gene/tag counts generated from the alignment are used as input for edgeR.
 \section{Prepare the Environment}
 We will use a dataset derived from sequencing of mRNA from \textit{Danio rerio} embryos
 in two different developmental stages. Sequencing was performed on the Illumina
@@ -491,6 +498,25 @@ data set is much higher than in the 6h data set.
 \begin{information}
 \texttt{Cuffquant} utility from te cufflinks suite can be used to generate the count files to be used with count based differential analysis methods such as, \texttt{edgeR} and \texttt{Deseq}.
 \end{information}
+
+\section{Differential Gene Expression Analysis using edgeR}
+\begin{information}
+The example we are working through today follows aCase Study set out in the edgeR Users Guide (4.3 Androgen-treated prostate cancer cells (RNA-Seq, two groups) which is based on an experiment conducted by Li et al. (2008, Proc Natl Acad Sci USA, 105, 20179-84).
+The researches used a prostate cancer cell line (LNCaP cells). These cells are sensitive to stimulation by male hormones (androgens). 
+Three replicate RNA samples were collected from LNCaP cells treated with an androgen hormone (DHT). Four replicates were collected from cells treated with an inactive compound. 
+Each of the seven samples was run on a lane (7 lanes) of an Illumina flow cell to produce 35 bp reads.
+The experimental design was therefore:
+TABLE here
+\end{information}
+\begin{steps}
+\begin{enumerate}
+  \item Load libraries
+
+  \item read in count table and experimental design
+\end{enumerate}
+\end{steps}
+
+
 \begin{bonus}
 \section{Functional Annotation of Differentially Expressed Genes}
 After you have performed the differential expression analysis you are interested
