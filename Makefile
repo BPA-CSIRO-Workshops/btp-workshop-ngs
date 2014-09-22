@@ -2,8 +2,8 @@
 .PHONY: 
 
 #made this change to make a handout containing QC and rna-seq moduels only
-#handout_latex_files  = handout.tex
-handout_latex_files  = qc_rnaseq_only.tex
+handout_latex_files  = handout.tex
+#handout_latex_files  = qc_rnaseq_only.tex
 
 trainer_output_files = $(addprefix trainer_, $(addsuffix .pdf, $(basename $(handout_latex_files))))
 trainee_output_files = $(addprefix trainee_, $(addsuffix .pdf, $(basename $(handout_latex_files))))
