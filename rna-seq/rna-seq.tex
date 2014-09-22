@@ -216,7 +216,7 @@ Open the \texttt{RNA-seq} directory on your Desktop and double-click the
 \texttt{tophat} subdirectory and then the \texttt{ZV9\_2cells} directory.
 
 \begin{enumerate}
-  \item Launch IGV by double-clicking the ``IGV 2.3'' icon on the Desktop
+  \item Launch IGV by double-clicking the ``IGV 2.3.*'' icon on the Desktop
   (ignore any warnings that you may get as it opens). \emph{NOTE: IGV may take
   several minutes to load for the first time, please be patient.}
   \item Choose ``Zebrafish (Zv9)'' from the drop-down box in the top left of the
@@ -501,7 +501,7 @@ data set is much higher than in the 6h data set.
 
 \section{Differential Gene Expression Analysis using edgeR}
 \begin{information}
-The example we are working through today follows aCase Study set out in the edgeR Users Guide (4.3 Androgen-treated prostate cancer cells (RNA-Seq, two groups) which is based on an experiment conducted by Li et al. (2008, Proc Natl Acad Sci USA, 105, 20179-84).
+The example we are working through today follows a case Study set out in the edgeR Users Guide (4.3 Androgen-treated prostate cancer cells (RNA-Seq, two groups) which is based on an experiment conducted by Li et al. (2008, Proc Natl Acad Sci USA, 105, 20179-84).
 The researches used a prostate cancer cell line (LNCaP cells). These cells are sensitive to stimulation by male hormones (androgens). 
 Three replicate RNA samples were collected from LNCaP cells treated with an androgen hormone (DHT). Four replicates were collected from cells treated with an inactive compound. 
 Each of the seven samples was run on a lane (7 lanes) of an Illumina flow cell to produce 35 bp reads.
@@ -511,8 +511,168 @@ TABLE here
 \begin{steps}
 \begin{enumerate}
   \item Load libraries
+\begin{lstlisting}
+library(edgeR)
+library(biomaRt)
+library(gplots)
+\end{lstlisting}
 
-  \item read in count table and experimental design
+\item read in count table and experimental design
+\begin{lstlisting}
+data <- read.delim("pnas_expression.txt", row.names=1, header=T)
+targets <- read.delim("Targets.txt", header=T)
+\end{lstlisting}
+\item Create DGEList object
+\begin{lstlisting}
+Y <- DGEList(counts=data[,1:7], group=targets$Treatment)
+\end{lstlisting}
+\item Change the column names of the object to align with treatment
+\begin{lstlisting}
+colnames(y) <- targets$Label
+\end{lstlisting}
+\item Check the dimensions of the object
+\begin{lstlisting}
+dim(y)
+\end{lstlisting}
+
+\item We see we have 37435 rows (i.e. genes) and 7 columns (samples)
+Now we will filter out genes with low counts by only keeping those rows where the count per million (cpm) is at least 1 in at least three samples
+
+\begin{lstlisting}
+keep <-rowSums( cpm(y)>1) >=3
+y <- y[keep, ]
+
+\end{lstlisting}
+
+
+
+\begin{questions}
+How many rows (genes) are retained now
+\begin{answer} dim(y) would give you 16494
+
+How many genes were filtered out?
+\begin{answer} 37435-16494
+\end{questions}
+
+\item We will now perform normalization to take account of different library size
+
+\begin{lstlisting}
+y<-calcNormFactors(y)
+\end{lstlisting}
+
+\item We will check the calculated normalization factors
+\begin{lstlisting}
+y$samples
+\end{lstlisting}
+
+
+\item Lets have a look at whether the samples cluster by condition. (You should produce a plot as shown in Figure )
+\begin{lstlisting}
+plotMDS(y)
+\end{lstlisting}
+
+\begin{information}
+\texttt{Cuffquant}
+We see here that the common dispersion estimates the overall Biological Coefficient of Variation (BCV) of the dataset averaged over all genes. The common dispersion is \texttt{0.02} and the BCV is the square root of the common dispersion \texttt{(/sqrt0.02 = 0.14)}.  A BCV of 14\% is typical for cell line experiment.
+
+\end{information}
+\item We now estimate gene-specific dispersion
+
+\begin{lstlisting}
+y <- estimateTagwiseDisp(y) 
+\end{lstlisting}
+\item We will plot the tagwise dispersion and the common dispersion (You should obtain a plot as shown in Figure )
+\begin{lstlisting}
+plotBCV(y)
+\end{lstlisting}
+
+\item We now test for differentially expressed genes
+\begin{lstlisting}
+et <- exactTest(y)
+\end{lstlisting}
+
+
+\item Now we will use the topTags function to adjust for multiple testing. We will use the Benjimini Hochberg (“BH”) method and we will produce a table of results
+\begin{lstlisting}
+res <- topTags(et, n=nrow(y$counts), adjust.method=”BH”)$table
+\end{lstlisting}
+
+\item Let's have a look at the first rows of the table
+
+\begin{lstlisting}
+head(res)
+\end{lstlisting}
+
+\begin{information}
+You can see we have the ensemble gene identifier in the first column, the log fold change in the second column, the the logCP, the PValue and the adjusted PValue. 
+The ensemble gene identifier is not as helpful as the gene symbol so let’s add in a column with the gene symbol. We will use the BiomaRt package to do this.
+\end{information}
+
+
+
+\item We start by using the useMart function of BiomaRt to access the human data base of ensemble gene ids.  Then we create a vector of our ensemble gene ids.
+\begin{lstlisting}
+ensembl=useMart("ensembl", dataset="hsapiens_gene_ensembl")
+ensembl_names<-rownames(res)
+\end{lstlisting}
+
+\item We then use the function getBM to get the gene symbol data we want
+
+\begin{lstlisting}
+genemap <-getBM( attributes= c("ensembl_gene_id", "entrezgene", "hgnc_symbol"), filters="ensembl_gene_id", values=ensembl_names, mart=ensembl)
+\end{lstlisting}
+
+This can taken about a minute or so.
+
+\item Have a look at the start of the genemap dataframe.
+
+\begin{lstlisting}
+head(genemap)
+\end{lstlisting}
+
+
+\item We see that we have 3 columns, the ensemble id, the entrez gene id and the hgnc symbol
+We use the match function to match up our data with the data we have just retrieved from the database.
+
+\begin{lstlisting}
+idx <- match(ensembl_names, genemap$ensembl_gene_id )
+res$entrez <-genemap$entrezgene [ idx ]
+res$hgnc_symbol <- genemap$hgnc_symbol [ idx ]
+\end{lstlisting}
+
+
+\item Next we have a look at the head of our \texttt{res} dataframe
+\begin{lstlisting}
+head(res)
+\end{lstlisting}
+As you see we have now added the hgnc symbol and the entrez id to our results.
+\item Let’s now make a subset of the most significant upregulated and downregulated genes.
+
+\begin{lstlisting}
+de<-res[res$FDR<0.05, ]
+de_upreg <-res[res$FDR<0.05 & res$logFC >0,] 
+de_downreg <-res[res$FDR<0.05 & res$logFC <0,] 
+
+\end{lstlisting}
+
+\begin{questions}
+How many differentially expressed genes are there?
+\begin{warning} Try str(de)
+\end{warning}
+\begin{answer} 4429
+
+How many upregulated genes and downregulated genes do we have?
+\begin{answer}
+str(de_upreg) = 2345
+str(de_downreg) = 2084
+
+\end{questions}
+
+\item Lets write out these results
+\begin{lstlisting}
+write.csv( as.data.frame(de), file=”DE_results.csv”)
+\end{lstlisting}
+
 \end{enumerate}
 \end{steps}
 
