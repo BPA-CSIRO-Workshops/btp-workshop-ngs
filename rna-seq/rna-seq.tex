@@ -595,6 +595,7 @@ y <- y[keep, ]
 
 \end{lstlisting}
 
+\end{steps}
 
 
 \begin{questions}
@@ -605,6 +606,7 @@ How many genes were filtered out?
 \begin{answer} 37435-16494
 \end{questions}
 
+\begin{steps}
 \item We will now perform normalization to take account of different library size
 
 \begin{lstlisting}
@@ -629,11 +631,14 @@ plotMDS(y)
 \label{fig:MDS plot}
 \end{figure}
 
+\end{steps}
 
 \begin{information}
 We see here that the common dispersion estimates the overall Biological Coefficient of Variation (BCV) of the dataset averaged over all genes. The common dispersion is \texttt{0.02} and the BCV is the square root of the common dispersion \texttt{(/sqrt0.02 = 0.14)}.  A BCV of 14\% is typical for cell line experiment.
 
 \end{information}
+
+\begin{steps}
 \item We now estimate gene-specific dispersion
 
 \begin{lstlisting}
@@ -644,6 +649,7 @@ y <- estimateTagwiseDisp(y)
 plotBCV(y)
 \end{lstlisting}
 
+\end{steps}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{rna-seq/bcv.png}
@@ -651,7 +657,7 @@ plotBCV(y)
 \label{fig:MDS plot}
 \end{figure}
 
-
+\begin{steps}
 \item We now test for differentially expressbcvgenes
 \begin{lstlisting}
 et <- exactTest(y)
@@ -669,13 +675,14 @@ res <- topTags(et, n=nrow(y$counts), adjust.method=”BH”)$table
 head(res)
 \end{lstlisting}
 
+\end{steps}
 \begin{information}
 You can see we have the ensemble gene identifier in the first column, the log fold change in the second column, the the logCP, the PValue and the adjusted PValue. 
 The ensemble gene identifier is not as helpful as the gene symbol so let’s add in a column with the gene symbol. We will use the BiomaRt package to do this.
 \end{information}
 
 
-
+\begin{steps}
 \item We start by using the useMart function of BiomaRt to access the human data base of ensemble gene ids.  Then we create a vector of our ensemble gene ids.
 \begin{lstlisting}
 ensembl=useMart("ensembl", dataset="hsapiens_gene_ensembl")
@@ -720,6 +727,7 @@ de_upreg <-res[res$FDR<0.05 & res$logFC >0,]
 de_downreg <-res[res$FDR<0.05 & res$logFC <0,] 
 
 \end{lstlisting}
+\end{steps}
 
 \begin{questions}
 How many differentially expressed genes are there?
@@ -734,6 +742,7 @@ str(de_downreg) = 2084
 
 \end{questions}
 
+\begin{steps}
 \item Lets write out these results
 \begin{lstlisting}
 write.csv( as.data.frame(de), file=”DE_results.csv”)
