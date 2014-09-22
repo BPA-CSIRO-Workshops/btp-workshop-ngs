@@ -1,7 +1,9 @@
 # You want latexmk to *always* run, because make does not have all the info.
 .PHONY: 
 
-handout_latex_files  = handout.tex
+#made this change to make a handout containing QC and rna-seq moduels only
+#handout_latex_files  = handout.tex
+handout_latex_files  = qc_rnaseq_only.tex
 
 trainer_output_files = $(addprefix trainer_, $(addsuffix .pdf, $(basename $(handout_latex_files))))
 trainee_output_files = $(addprefix trainee_, $(addsuffix .pdf, $(basename $(handout_latex_files))))
@@ -32,15 +34,15 @@ all: $(trainer_output_files) $(trainee_output_files)
 # missing file reference and interactively asking you for an alternative.
 
 trainee_%.pdf: %.tex
-	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $<
+	/usr/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $<
 	latexmk -pdf -jobname=$(basename $@) -pdflatex='pdflatex -halt-on-error %O %S -synctex=1 -interaction=nonstopmode --src-specials' -f -use-make $<
 
 trainer_%.pdf: %.tex
-	/bin/sed -i -e 's@^\\usepackage{btp}@\\usepackage[trainermanual]{btp}@' $<
+	/usr/bin/sed -i -e 's@^\\usepackage{btp}@\\usepackage[trainermanual]{btp}@' $<
 	latexmk -pdf -jobname=$(basename $@) -pdflatex='pdflatex -halt-on-error %O %S -synctex=1 -interaction=nonstopmode --src-specials' -f -use-make $<
-	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $<
+	/usr/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $<
 
 clean: 
 	latexmk -C -jobname=trainee_$(basename $(handout_latex_files)) $(handout_latex_files)
 	latexmk -C -jobname=trainer_$(basename $(handout_latex_files)) $(handout_latex_files)
-	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $(handout_latex_files)
+	/usr/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $(handout_latex_files)

@@ -499,6 +499,35 @@ data set is much higher than in the 6h data set.
 \texttt{Cuffquant} utility from te cufflinks suite can be used to generate the count files to be used with count based differential analysis methods such as, \texttt{edgeR} and \texttt{Deseq}.
 \end{information}
 
+\section{Functional Annotation of Differentially Expressed Genes}
+After you have performed the differential expression analysis you are interested
+in identifying if there is any functionality enrichment for your differentially
+expressed genes.
+On your Desktop click:
+\begin{lstlisting}[style=command_syntax]
+Applications >> Internet >> Firefox Web Browser
+\end{lstlisting}
+And go to the following URL: \url{http://david.abcc.ncifcrf.gov/}
+On the left side click on Functional Annotation. Then click on the Upload tab.
+Under the section Choose from File, click Choose File and navigate to the
+\texttt{cuffdiff} directory. Select the file called \texttt{globalDiffExprs\_Genes\_qval.01\_top100.tab}.
+Under Step 2 select ENSEMBL\_GENE\_ID from the drop-down menu. Finally select
+Gene list and then press Submit List.
+Click on Gene Ontology and then click on the CHART button of the GOTERM\_BP\_ALL item.
+
+\begin{questions}
+Do these categories make sense given the samples we're studying?
+\begin{answer}
+Developmental Biology
+\end{answer}
+
+Browse around DAVID website and check what other information are available.
+\begin{answer}
+Cellular component, Molecular function, Biological Processes, Tissue expression, Pathways, Literature, Protein domains 
+\end{answer}
+\end{questions}
+
+
 \section{Differential Gene Expression Analysis using edgeR}
 \begin{information}
 The example we are working through today follows a case Study set out in the edgeR Users Guide (4.3 Androgen-treated prostate cancer cells (RNA-Seq, two groups) which is based on an experiment conducted by Li et al. (2008, Proc Natl Acad Sci USA, 105, 20179-84).
@@ -506,7 +535,29 @@ The researches used a prostate cancer cell line (LNCaP cells). These cells are s
 Three replicate RNA samples were collected from LNCaP cells treated with an androgen hormone (DHT). Four replicates were collected from cells treated with an inactive compound. 
 Each of the seven samples was run on a lane (7 lanes) of an Illumina flow cell to produce 35 bp reads.
 The experimental design was therefore:
-TABLE here
+
+\begin{table}[H]
+  \centering
+  \caption{Experimental design}
+    \begin{tabular}{rrr}
+    \toprule
+    \textbf{Lane)} & \textbf{Treatment} & \textbf{Label} \\
+    \midrule
+    1    & Control     & Con1\% \\
+    2    & Control    & Con2\% \\
+    3    & Control & Con3\% \\
+    4    & Control & Con4\% \\
+    5    & DHT & DHT1\% \\
+    5    & DHT & DHT2\% \\
+    5    & DHT & DHT3\% \\
+
+    \bottomrule
+    \end{tabular}
+  \label{tab:experimental design}
+\end{table}
+
+
+
 \end{information}
 \begin{steps}
 \begin{enumerate}
@@ -571,8 +622,15 @@ y$samples
 plotMDS(y)
 \end{lstlisting}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{rna-seq/mds.png}
+\caption{Visualization of smaple clustering}
+\label{fig:MDS plot}
+\end{figure}
+
+
 \begin{information}
-\texttt{Cuffquant}
 We see here that the common dispersion estimates the overall Biological Coefficient of Variation (BCV) of the dataset averaged over all genes. The common dispersion is \texttt{0.02} and the BCV is the square root of the common dispersion \texttt{(/sqrt0.02 = 0.14)}.  A BCV of 14\% is typical for cell line experiment.
 
 \end{information}
@@ -586,7 +644,15 @@ y <- estimateTagwiseDisp(y)
 plotBCV(y)
 \end{lstlisting}
 
-\item We now test for differentially expressed genes
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{rna-seq/bcv.png}
+\caption{Visualization of smaple clustering}
+\label{fig:MDS plot}
+\end{figure}
+
+
+\item We now test for differentially expressbcvgenes
 \begin{lstlisting}
 et <- exactTest(y)
 \end{lstlisting}
@@ -678,33 +744,6 @@ write.csv( as.data.frame(de), file=”DE_results.csv”)
 
 
 \begin{bonus}
-\section{Functional Annotation of Differentially Expressed Genes}
-After you have performed the differential expression analysis you are interested
-in identifying if there is any functionality enrichment for your differentially
-expressed genes.
-On your Desktop click:
-\begin{lstlisting}[style=command_syntax]
-Applications >> Internet >> Firefox Web Browser
-\end{lstlisting}
-And go to the following URL: \url{http://david.abcc.ncifcrf.gov/}
-On the left side click on Functional Annotation. Then click on the Upload tab.
-Under the section Choose from File, click Choose File and navigate to the
-\texttt{cuffdiff} directory. Select the file called \texttt{globalDiffExprs\_Genes\_qval.01\_top100.tab}.
-Under Step 2 select ENSEMBL\_GENE\_ID from the drop-down menu. Finally select
-Gene list and then press Submit List.
-Click on Gene Ontology and then click on the CHART button of the GOTERM\_BP\_ALL item.
-
-\begin{questions}
-Do these categories make sense given the samples we're studying?
-\begin{answer}
-Developmental Biology
-\end{answer}
-
-Browse around DAVID website and check what other information are available.
-\begin{answer}
-Cellular component, Molecular function, Biological Processes, Tissue expression, Pathways, Literature, Protein domains 
-\end{answer}
-\end{questions}
 \end{bonus}
 
 \newpage
