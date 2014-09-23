@@ -560,8 +560,8 @@ was therefore:
     3    & Control & Con3\% \\
     4    & Control & Con4\% \\
     5    & DHT & DHT1\% \\
-    5    & DHT & DHT2\% \\
-    5    & DHT & DHT3\% \\
+    6    & DHT & DHT2\% \\
+    7    & DHT & DHT3\% \\
 
     \bottomrule
     \end{tabular}
@@ -570,7 +570,13 @@ was therefore:
 \end{information}
 
 \begin{steps}
-Load libraries:
+Prepare the environment and load R:
+\begin{lstlisting}
+cd ~/RNA-seq/edgeR
+R (press enter)
+\end{lstlisting}
+
+Once on the R prompt. Load libraries:
 \begin{lstlisting}
 library(edgeR)
 library(biomaRt)
