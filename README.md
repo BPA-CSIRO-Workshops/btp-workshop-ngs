@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout.png?branch=master)](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout)
+[![Build Status](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout.png?branch=rna-rejig)](https://travis-ci.org/BPA-CSIRO-Workshops/ngs-handout)
 
 Table of Contents
 =================
