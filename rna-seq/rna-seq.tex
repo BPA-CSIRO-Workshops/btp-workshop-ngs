@@ -713,7 +713,7 @@ dim(y) would give you 16494
 
 How many genes were filtered out?
 \begin{answer}
-37435-16494
+do 37435-16494.
 \end{answer}
 \end{questions}
 
@@ -796,13 +796,12 @@ gene identifier is not as helpful as the gene symbol so let's add in a column wi
 gene symbol. We will use the \texttt{BiomaRt} package to do this.
 \end{information}
 
-
 \begin{steps}
 item We start by using the \texttt{useMart} function of \texttt{BiomaRt} to access the
 human data base of ensemble gene ids. Then we create a vector of our ensemble gene ids:
 \begin{lstlisting}
-ensembl<-useMart("ensembl", dataset="hsapiens_gene_ensembl")
 ensembl_names<-rownames(res)
+ensembl<-useMart("ensembl", dataset="hsapiens_gene_ensembl")
 \end{lstlisting}
 
 We then use the function \texttt{getBM} to get the gene symbol data we want 
@@ -834,6 +833,9 @@ head(res)
 \end{lstlisting}
 As you see we have now added the hgnc symbol and the entrez id to our results.
 
+
+
+
 Let's now make a subset of the most significant upregulated and downregulated genes:
 \begin{lstlisting}
 de<-res[res$FDR<0.05, ]
@@ -860,15 +862,15 @@ str(de\_downreg) = 2084
 \begin{steps}
 Lets write out these results:
 \begin{lstlisting}
-write.csv(as.data.frame(de), file='DE_genes.csv')
+write.csv( as.data.frame(de), file="DEGs.csv")
 \end{lstlisting}
 You can try running the list through DAVID for functional annotation.
 We will select top 100 genes from the differential expressed list and write those to a separate list.
 
 \begin{lstlisting}
-de.top1000<-de[1:1000]
-de.top1000.gene.symb<-de.top1000$hgnc_symbol
-write.csv(de.top1000.gene.symb, file='DE_top1000_geneSymbols.csv')
+de_top_3000 <-de[1:3000,]
+de_top_gene_symbols <-de_top_3000$hgnc_symbol
+write(de_top_gene_symbols, 'DE_gene_symbols.txt', sep="\t")
 \end{lstlisting}
 
 You can now quit the R prompt
