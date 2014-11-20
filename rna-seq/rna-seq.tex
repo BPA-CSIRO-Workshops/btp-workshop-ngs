@@ -564,7 +564,7 @@ head(fpkm(isoforms(sigGenes)))
 Plotting a heatmap of the differentially expressed genes
 \begin{lstlisting}
 pdf(file = "heatmap.pdf", height = 6, width = 6)
-h<-csHeatmap(sigGenes,cluster='both')
+h<-csHeatmap(sigGenes,cluster="both")
 h
 dev.off()
 \end{lstlisting}
@@ -780,7 +780,7 @@ et <- exactTest(y)
 Now we will use the topTags function to adjust for multiple testing. We will use the
 Benjimini Hochberg ("BH") method and we will produce a table of results:
 \begin{lstlisting}
-res <- topTags(et, n=nrow(y$counts), adjust.method='BH')$table
+res <- topTags(et, n=nrow(y$counts), adjust.method="BH")$table
 \end{lstlisting}
 
 Let's have a look at the first rows of the table:
@@ -870,7 +870,7 @@ We will select top 100 genes from the differential expressed list and write thos
 \begin{lstlisting}
 de_top_3000 <-de[1:3000,]
 de_top_gene_symbols <-de_top_3000$hgnc_symbol
-write(de_top_gene_symbols, 'DE_gene_symbols.txt', sep="\t")
+write(de_top_gene_symbols, "DE_gene_symbols.txt", sep="\t")
 \end{lstlisting}
 
 You can now quit the R prompt
