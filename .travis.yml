@@ -2,7 +2,11 @@ env:
   global:
     - PATH: /usr/local/texlive/bin/x86_64-linux:$PATH
     - GH_REF: github.com/${TRAVIS_REPO_SLUG}.git
-    - secure: "N0JlfjkDLdSzyLCc0qoW6oVQy3rhTPPh4WMkRno0I9LIfPF3RtVBIk/gqM4h0t2Kxe2hBkualue8MtLfwRqHNgeXbWbvRN77Tp9N4FJXb39bA0uISIfdzF8K3P7Tpm7Ch/8JgnMkRn3j5i4FjhSndgm4BLZ48Y36UBQxRz+pGhw="
+    - secure: "J/oFevIbuIyl1P16qdSVaNeJ0P1rL5Hub92SlDcNmhZ6NGu7+9N43fDs+uf3ihCmu664wZDKzB8YACetOfZ+XrZ9M72IfI3CzA7OWrx8elsub+WvaaOeVp3D+tDgNzxhXVRVJl5jZMmgEh5KjZ6GNshuTEPrIN+14s8bR4CciEM="
+git:
+  submodules: false
+before_install:
+  - git submodule update --init --recursive
 before_script:
   - cd ./developers/ && sudo -E ./texlive_install.sh && cd ../
 script: make

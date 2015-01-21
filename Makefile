@@ -35,14 +35,15 @@ all: $(trainer_output_files) $(trainee_output_files)
 
 trainee_%.pdf: %.tex
 	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $<
-	latexmk -pdf -jobname=$(basename $@) -pdflatex='pdflatex -halt-on-error %O %S -synctex=1 -interaction=nonstopmode --src-specials' -f -use-make $<
+	TEXINPUTS=.:./style//:$$TEXINPUTS latexmk -pdf -jobname=$(basename $@) -pdflatex='pdflatex -halt-on-error %O %S -synctex=1 -interaction=nonstopmode --src-specials' -f -use-make $<
 
 trainer_%.pdf: %.tex
 	/bin/sed -i -e 's@^\\usepackage{btp}@\\usepackage[trainermanual]{btp}@' $<
-	latexmk -pdf -jobname=$(basename $@) -pdflatex='pdflatex -halt-on-error %O %S -synctex=1 -interaction=nonstopmode --src-specials' -f -use-make $<
+	TEXINPUTS=.:./style//:$$TEXINPUTS latexmk -pdf -jobname=$(basename $@) -pdflatex='pdflatex -halt-on-error %O %S -synctex=1 -interaction=nonstopmode --src-specials' -f -use-make $<
 	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $<
 
 clean: 
 	latexmk -C -jobname=trainee_$(basename $(handout_latex_files)) $(handout_latex_files)
 	latexmk -C -jobname=trainer_$(basename $(handout_latex_files)) $(handout_latex_files)
+	rm -f *.cut licences/*.xmpi
 	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $(handout_latex_files)

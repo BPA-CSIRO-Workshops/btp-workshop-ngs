@@ -1,0 +1,3 @@
+[submodule "style"]
+	path = style
+	url = git://github.com/BPA-CSIRO-Workshops/workshop-style.git
