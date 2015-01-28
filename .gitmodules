@@ -4,3 +4,6 @@
 [submodule "ngs-qc"]
 	path = ngs-qc
 	url = https://github.com/BPA-CSIRO-Workshops/module-ngs-qc.git
+[submodule "chip-seq"]
+	path = chip-seq
+	url = https://github.com/BPA-CSIRO-Workshops/module-chip-seq.git
