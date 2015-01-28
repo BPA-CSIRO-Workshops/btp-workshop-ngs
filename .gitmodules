@@ -7,3 +7,6 @@
 [submodule "chip-seq"]
 	path = chip-seq
 	url = https://github.com/BPA-CSIRO-Workshops/module-chip-seq.git
+[submodule "rna-seq"]
+	path = rna-seq
+	url = https://github.com/BPA-CSIRO-Workshops/module-rna-seq.git
