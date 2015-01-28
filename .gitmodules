@@ -10,3 +10,6 @@
 [submodule "rna-seq"]
 	path = rna-seq
 	url = https://github.com/BPA-CSIRO-Workshops/module-rna-seq.git
+[submodule "alignment"]
+	path = alignment
+	url = https://github.com/BPA-CSIRO-Workshops/module-ngs-alignment.git
