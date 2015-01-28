@@ -13,3 +13,6 @@
 [submodule "alignment"]
 	path = alignment
 	url = https://github.com/BPA-CSIRO-Workshops/module-ngs-alignment.git
+[submodule "de_novo"]
+	path = de_novo
+	url = https://github.com/BPA-CSIRO-Workshops/module-ngs-de_novo-assembly.git
