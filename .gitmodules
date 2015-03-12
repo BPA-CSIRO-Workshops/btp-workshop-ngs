@@ -2,17 +2,17 @@
 	path = style
 	url = git://github.com/BPA-CSIRO-Workshops/workshop-style.git
 [submodule "ngs-qc"]
-	path = ngs-qc
+	path = 050_ngs-qc
 	url = https://github.com/BPA-CSIRO-Workshops/module-ngs-qc.git
 [submodule "chip-seq"]
-	path = chip-seq
+	path = 070_chip-seq
 	url = https://github.com/BPA-CSIRO-Workshops/module-chip-seq.git
 [submodule "rna-seq"]
-	path = rna-seq
+	path = 080_rna-seq
 	url = https://github.com/BPA-CSIRO-Workshops/module-rna-seq.git
 [submodule "alignment"]
-	path = alignment
+	path = 060_alignment
 	url = https://github.com/BPA-CSIRO-Workshops/module-ngs-alignment.git
 [submodule "de_novo"]
-	path = de_novo
+	path = 090_de_novo
 	url = https://github.com/BPA-CSIRO-Workshops/module-ngs-de_novo-assembly.git
