@@ -27,6 +27,7 @@ tar \
 
 # Install packages required by this style
 packages=(
+  tools
   mdframed
   preprint
   enumitem
