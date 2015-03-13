@@ -6,8 +6,9 @@ SHELL = bash
 
 handout_latex_files  = handout.tex
 
-MODULE_TEX_FILES = $(shell find ./*/handout/ -maxdepth 1 -type f -name '*.tex' | sort -n)
-SED_EXPRESSIONS = $(addprefix -e '/^\\chapterstyle{module}/a \\\input{, $(addsuffix }', $(MODULE_TEX_FILES)))
+MODULE_TEX_FILES = $(shell find ./*/handout/ -maxdepth 1 -type f -path '\./[0-9]*.tex' | sort -n)
+
+MODULE_SED_EXPRESSIONS = $(addprefix -e '/^\\chapterstyle{module}/a \\\input{, $(addsuffix }', $(MODULE_TEX_FILES)))
 
 trainer_output_files = $(addprefix trainer_, $(addsuffix .pdf, $(basename $(handout_latex_files))))
 trainee_output_files = $(addprefix trainee_, $(addsuffix .pdf, $(basename $(handout_latex_files))))
@@ -38,7 +39,7 @@ all: $(trainer_output_files) $(trainee_output_files)
 # missing file reference and interactively asking you for an alternative.
 
 handout.tex: template.tex $(MODULE_TEX_FILES)
-	sed $(SED_EXPRESSIONS) < template.tex > $@
+	sed $(MODULE_SED_EXPRESSIONS) < template.tex > $@
 
 trainee_%.pdf: %.tex
 	/bin/sed -i -e 's@^\\usepackage\[trainermanual\]{btp}@\\usepackage{btp}@' $<
