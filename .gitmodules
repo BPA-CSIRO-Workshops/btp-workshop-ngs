@@ -19,3 +19,6 @@
 [submodule "090_velvet"]
 	path = 090_velvet
 	url = git://github.com/BPA-CSIRO-Workshops/module-ngs-de_novo-assembly.git
+[submodule "orchestration"]
+	path = orchestration
+	url = https://github.com/BPA-CSIRO-Workshops/btp-orchestration.git
