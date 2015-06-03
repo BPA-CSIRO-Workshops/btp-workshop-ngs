@@ -1,0 +1,195 @@
+{
+  "description": "BTP Image Deployment for VMWare",
+  "builders": [
+    {
+      "type": "vmware-iso",
+      "guest_os_type": "Ubuntu-64",
+      "vm_name": "btp",
+      "http_directory": "precise",
+      "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.5-alternate-amd64.iso",
+      "iso_checksum": "fa0893ffe2188a6daf918791cdccb480",
+      "iso_checksum_type": "md5",
+      "ssh_username": "ubuntu",
+      "ssh_password": "ubuntu",
+      "ssh_port": "22",
+      "ssh_wait_timeout": "60m",
+      "disk_size": "30000",
+      "shutdown_command": "echo 'ubuntu' | sudo -S shutdown -P now",
+      "headless": "false",
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname={{ .Name }} ",
+        "fb=false debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      "output_directory": "vmware",
+      "tools_upload_flavor": "linux",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "4096",
+        "numvcpus": "2"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "provisioners/preflight.sh",
+        "provisioners/vmware/vmware-tools.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/prepare.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/misc.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/scm.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/compilers.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/libraries.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/java.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/puppet.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/gnx-tools.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/fastqc.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/fastx-toolkit.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/picard.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/bowtie.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/bowtie2.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/samtools.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/bedtools.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/ucsctools.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/velvet.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/macs.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/peakanalyzer.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/tophat.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/tophat2.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/cufflinks.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/igv.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/igvtools.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/r.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/mummer.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/blat.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/amos.sh",
+        "btp-catalogue/ngs-workshop/ngs-tools/qiime.sh",
+        "provisioners/postflight.sh"
+      ],
+      "pause_before": "10s",
+      "override": {
+        "vmware-iso": {
+          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
+        }
+      }
+    },
+    {
+      "type": "file",
+      "source": "btp-module-ngs-qc/datasets/ngs-qc.yaml",
+      "destination": "/tmp/ngs-qc.yaml"
+    },
+    {
+      "type": "shell",
+      "inline": ["mv /tmp/ngs-qc.yaml /etc/puppet/"],
+      "override": {
+        "vmware-iso": {
+          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
+        }
+      }
+    },
+    {
+      "type": "file",
+      "source": "btp-module-chip-seq/datasets/ngs-chipseq.yaml",
+      "destination": "/tmp/ngs-chipseq.yaml"
+    },
+    {
+      "type": "shell",
+      "inline": ["mv /tmp/ngs-chipseq.yaml /etc/puppet/"],
+      "override": {
+        "vmware-iso": {
+          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
+        }
+      }
+    },
+    {
+      "type": "file",
+      "source": "btp-module-ngs-mapping/datasets/ngs-mapping.yaml",
+      "destination": "/tmp/ngs-mapping.yaml"
+    },
+    {
+      "type": "shell",
+      "inline": ["mv /tmp/ngs-mapping.yaml /etc/puppet/"],
+      "override": {
+        "vmware-iso": {
+          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
+        }
+      }
+    },
+    {
+      "type": "file",
+      "source": "btp-module-velvet/datasets/ngs-denovo.yaml",
+      "destination": "/tmp/ngs-denovo.yaml"
+    },
+    {
+      "type": "shell",
+      "inline": ["mv /tmp/ngs-denovo.yaml /etc/puppet/"],
+      "override": {
+        "vmware-iso": {
+          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
+        }
+      }
+    },
+    {
+      "type": "file",
+      "source": "btp-module-rna-seq/datasets/ngs-rnaseq.yaml",
+      "destination": "/tmp/ngs-rnaseq.yaml"
+    },
+    {
+      "type": "shell",
+      "inline": ["mv /tmp/ngs-rnaseq.yaml /etc/puppet/"],
+      "override": {
+        "vmware-iso": {
+          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
+        }
+      }
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "btp-catalogue/ngs-workshop/btp.pp",
+      "hiera_config_path": "btp-module-ngs-qc/datasets/ngs-qc-hiera.yaml",
+      "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "btp-catalogue/ngs-workshop/btp.pp",
+      "hiera_config_path": "btp-module-chip-seq/datasets/ngs-chipseq-hiera.yaml",
+      "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "btp-catalogue/ngs-workshop/btp.pp",
+      "hiera_config_path": "btp-module-ngs-mapping/datasets/ngs-mapping-hiera.yaml",
+      "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "btp-catalogue/ngs-workshop/btp.pp",
+      "hiera_config_path": "btp-module-velvet/datasets/ngs-denovo-hiera.yaml",
+      "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "btp-catalogue/ngs-workshop/btp.pp",
+      "hiera_config_path": "btp-module-rna-seq/datasets/ngs-rnaseq-hiera.yaml",
+      "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "chown ubuntu.ubuntu /mnt/workshop -R"
+      ],
+      "override": {
+        "vmware-iso": {
+          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
+        }
+      }
+    }
+  ]
+}

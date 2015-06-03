@@ -1,0 +1,215 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : "This template instantiates the Bioplatforms Australia Training Platform (BTP) on Amazon AWS using the latest BTP AMI.",
+
+  "Parameters" : {
+    "KeyName": {
+      "Description" : "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "ConstraintDescription" : "must be the name of an existing EC2 KeyPair."
+    },
+
+    "InstanceType" : {
+      "Description" : "WebServer EC2 instance type",
+      "Type" : "String",
+      "Default" : "m1.small",
+      "AllowedValues" : [ "t1.micro", "t2.micro", "t2.small", "t2.medium", "m1.small", "m1.medium", "m1.large", "m1.xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c1.medium", "c1.xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "g2.2xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "d2.xlarge", "d2.2xlarge", "d2.4xlarge", "d2.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "cr1.8xlarge", "cc2.8xlarge", "cg1.4xlarge"]
+,
+      "ConstraintDescription" : "must be a valid EC2 instance type."
+    },
+
+    "SSHLocation" : {
+      "Description" : "The IP address range that can be used to SSH to the EC2 instances",
+      "Type" : "String",
+      "MinLength" : "9",
+      "MaxLength" : "18",
+      "Default" : "0.0.0.0/0",
+      "AllowedPattern" : "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+      "ConstraintDescription" : "must be a valid IP CIDR range of the form x.x.x.x/x."
+    },
+
+    "TraineePassword" : {
+      "Description" : "The password to assign the trainee user for remote access",
+      "Type" : "String",
+      "MinLength" : "7",
+      "MaxLength" : "41",
+      "AllowedPattern" : "[a-zA-Z0-9]*",
+      "ConstraintDescription" : "Must contain only alphanumeric characters",
+      "NoEcho": "true"
+    }
+  },
+
+  "Mappings" : {
+    "AWSInstanceType2Arch" : {
+      "t1.micro"    : { "Arch" : "PV64"  },
+      "t2.micro"    : { "Arch" : "HVM64" },
+      "t2.small"    : { "Arch" : "HVM64" },
+      "t2.medium"   : { "Arch" : "HVM64" },
+      "m1.small"    : { "Arch" : "PV64"  },
+      "m1.medium"   : { "Arch" : "PV64"  },
+      "m1.large"    : { "Arch" : "PV64"  },
+      "m1.xlarge"   : { "Arch" : "PV64"  },
+      "m2.xlarge"   : { "Arch" : "PV64"  },
+      "m2.2xlarge"  : { "Arch" : "PV64"  },
+      "m2.4xlarge"  : { "Arch" : "PV64"  },
+      "m3.medium"   : { "Arch" : "HVM64" },
+      "m3.large"    : { "Arch" : "HVM64" },
+      "m3.xlarge"   : { "Arch" : "HVM64" },
+      "m3.2xlarge"  : { "Arch" : "HVM64" },
+      "c1.medium"   : { "Arch" : "PV64"  },
+      "c1.xlarge"   : { "Arch" : "PV64"  },
+      "c3.large"    : { "Arch" : "HVM64" },
+      "c3.xlarge"   : { "Arch" : "HVM64" },
+      "c3.2xlarge"  : { "Arch" : "HVM64" },
+      "c3.4xlarge"  : { "Arch" : "HVM64" },
+      "c3.8xlarge"  : { "Arch" : "HVM64" },
+      "c4.large"    : { "Arch" : "HVM64" },
+      "c4.xlarge"   : { "Arch" : "HVM64" },
+      "c4.2xlarge"  : { "Arch" : "HVM64" },
+      "c4.4xlarge"  : { "Arch" : "HVM64" },
+      "c4.8xlarge"  : { "Arch" : "HVM64" },
+      "g2.2xlarge"  : { "Arch" : "HVMG2" },
+      "r3.large"    : { "Arch" : "HVM64" },
+      "r3.xlarge"   : { "Arch" : "HVM64" },
+      "r3.2xlarge"  : { "Arch" : "HVM64" },
+      "r3.4xlarge"  : { "Arch" : "HVM64" },
+      "r3.8xlarge"  : { "Arch" : "HVM64" },
+      "i2.xlarge"   : { "Arch" : "HVM64" },
+      "i2.2xlarge"  : { "Arch" : "HVM64" },
+      "i2.4xlarge"  : { "Arch" : "HVM64" },
+      "i2.8xlarge"  : { "Arch" : "HVM64" },
+      "d2.xlarge"   : { "Arch" : "HVM64" },
+      "d2.2xlarge"  : { "Arch" : "HVM64" },
+      "d2.4xlarge"  : { "Arch" : "HVM64" },
+      "d2.8xlarge"  : { "Arch" : "HVM64" },
+      "hi1.4xlarge" : { "Arch" : "HVM64" },
+      "hs1.8xlarge" : { "Arch" : "HVM64" },
+      "cr1.8xlarge" : { "Arch" : "HVM64" },
+      "cc2.8xlarge" : { "Arch" : "HVM64" }
+    },
+
+    "AWSRegionArch2AMI" : {
+      "ap-southeast-2" : { "PV64" : "ami-179fe22d" }
+    }
+
+  },
+
+  "Resources" : {
+    "BTPInstance" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "InstanceType" : { "Ref" : "InstanceType" },
+        "SecurityGroups" : [ { "Ref" : "BTPSecurityGroup" } ],
+        "KeyName" : { "Ref" : "KeyName" },
+        "ImageId" : { "Fn::FindInMap" : [ "AWSRegionArch2AMI", { "Ref" : "AWS::Region" },
+                    { "Fn::FindInMap" : [ "AWSInstanceType2Arch", { "Ref" : "InstanceType" }, "Arch" ] } ] },
+        "UserData" : { "Fn::Base64" : { "Fn::Join" : ["\n", [
+                     "#!/bin/bash",
+                     "# FreeNX",
+                     "/usr/bin/add-apt-repository ppa:freenx-team -y",
+                     "apt-get update",
+                     "apt-get install -y freenx",
+                     "# Mount Device",
+                     "mkfs -t ext4 /dev/xvdc",
+                     "mount /dev/xvdc /mnt",
+                     "# Set Hostname",
+                     "echo \"127.0.0.1 $HOSTNAME\" | tee -a /etc/hosts",
+                     "# NGS QC Module",
+                     "cd /tmp/",
+                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-qc.git",
+                     "cp btp-module-ngs-qc/datasets/ngs-qc-aws.yaml /etc/puppet/",
+                     "cp btp-module-ngs-qc/datasets/ngs-qc-hiera-aws.yaml /etc/puppet/",
+                     "# NGS ChIP-Seq Module",
+                     "cd /tmp/",
+                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-chip-seq.git",
+                     "cp btp-module-chip-seq/datasets/ngs-chipseq-aws.yaml /etc/puppet/",
+                     "cp btp-module-chip-seq/datasets/ngs-chipseq-hiera-aws.yaml /etc/puppet/",
+                     "# NGS Mapping Module",
+                     "cd /tmp/",
+                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-mapping.git",
+                     "cp btp-module-ngs-mapping/datasets/ngs-mapping-aws.yaml /etc/puppet/",
+                     "cp btp-module-ngs-mapping/datasets/ngs-mapping-hiera-aws.yaml /etc/puppet/",
+                     "# NGS Assembly Module",
+                     "cd /tmp/",
+                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-velvet.git",
+                     "cp btp-module-velvet/datasets/ngs-denovo-aws.yaml /etc/puppet/",
+                     "cp btp-module-velvet/datasets/ngs-denovo-hiera-aws.yaml /etc/puppet/",
+                     "# NGS RNA-Seq Module",
+                     "cd /tmp/",
+                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-rna-seq.git",
+                     "cp btp-module-rna-seq/datasets/ngs-rnaseq-aws.yaml /etc/puppet/",
+                     "cp btp-module-rna-seq/datasets/ngs-rnaseq-hiera-aws.yaml /etc/puppet/",
+                     "# Apply Puppet Modules",
+                     "cd /tmp/",
+                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-catalogue.git",
+                     "puppet apply --verbose --parser future btp-catalogue/ngs-workshop/btp.pp --hiera_config=/etc/puppet/ngs-qc-hiera-aws.yaml",
+                     "puppet apply --verbose --parser future btp-catalogue/ngs-workshop/btp.pp --hiera_config=/etc/puppet/ngs-chipseq-hiera-aws.yaml",
+                     "puppet apply --verbose --parser future btp-catalogue/ngs-workshop/btp.pp --hiera_config=/etc/puppet/ngs-mapping-hiera-aws.yaml",
+                     "puppet apply --verbose --parser future btp-catalogue/ngs-workshop/btp.pp --hiera_config=/etc/puppet/ngs-denovo-hiera-aws.yaml",
+                     "puppet apply --verbose --parser future btp-catalogue/ngs-workshop/btp.pp --hiera_config=/etc/puppet/ngs-rnaseq-hiera-aws.yaml",
+                     "# Manuals",
+                     "su trainee -c \"curl -o /home/trainee/Desktop/trainee_handout.pdf http://bpa-csiro-workshops.github.io/btp-workshop-ngs/pdfs-latest/trainee_handout.pdf\"",
+                     "su trainee -c \"curl -o /home/trainee/Desktop/trainer_handout.pdf http://bpa-csiro-workshops.github.io/btp-workshop-ngs/pdfs-latest/trainer_handout.pdf\"",
+                     "# Set Trainee Credentials",
+                     {
+                       "Fn::Join": [ "", [
+                       "echo -e \"trainee:",
+                       { "Ref" : "TraineePassword" },
+                       "\" | chpasswd"
+                       ] ]
+                     }
+                     ] ] } }
+      }
+    },
+
+    "BTPSecurityGroup" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Enable SSH access via port 22",
+        "SecurityGroupIngress" : [ {
+          "IpProtocol" : "tcp",
+          "FromPort" : "22",
+          "ToPort" : "22",
+          "CidrIp" : { "Ref" : "SSHLocation"}
+        } ]
+      }
+    },
+
+    "BTPVolume" : {
+      "Type" : "AWS::EC2::Volume",
+      "Properties" : {
+        "Size" : "100",
+        "AvailabilityZone" : { "Fn::GetAtt" : [ "BTPInstance", "AvailabilityZone" ] }
+      }
+    },
+
+    "MountPoint" : {
+      "Type" : "AWS::EC2::VolumeAttachment",
+      "Properties" : {
+        "InstanceId" : { "Ref" : "BTPInstance" },
+        "VolumeId" : { "Ref" : "BTPVolume" },
+        "Device" : "/dev/sdc"
+      }
+    } 
+  },
+
+  "Outputs" : {
+    "InstanceId" : {
+      "Description" : "InstanceId of the newly created EC2 instance",
+      "Value" : { "Ref" : "BTPInstance" }
+    },
+    "AZ" : {
+      "Description" : "Availability Zone of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "BTPInstance", "AvailabilityZone" ] }
+    },
+    "PublicDNS" : {
+      "Description" : "Public DNSName of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "BTPInstance", "PublicDnsName" ] }
+    },
+    "PublicIP" : {
+      "Description" : "Public IP address of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "BTPInstance", "PublicIp" ] }
+    }
+  }
+}

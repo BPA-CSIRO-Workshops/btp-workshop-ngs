@@ -1,0 +1,143 @@
+HeatTemplateFormatVersion: '2012-12-12'
+
+Description: "This template instantiates the Bioplatforms Australia Training
+  Platform. This will launch a single virtual machine on the NeCTAR Research
+  Cloud using the latest virtual machine image."
+
+Parameters:
+  KeyName:
+    Description: "Name of an existing key pair to access the instance."
+    Label: "Key Name"
+    Type: "String"
+  InstanceType:
+    Description: "Size of the instance to be created."
+    Label: "Instance Type"
+    Type: "String"
+    Default: "m1.small"
+    AllowedValues: 
+      - "m1.small" 
+      - "m1.medium" 
+      - "m1.large"
+      - "m1.xlarge" 
+      - "m1.xxlarge"
+  InstanceCount:
+    Description: "Number of instances to launch."
+    Label: "Instance Count"
+    Type: "Number"
+  ImageName:
+    Description: "ID of the NeCTAR image to be used for the instance."
+    Label: "Image Name"
+    Type: "String"
+    Default: "NGSTrainingV1.6"
+    AllowedValues:
+      - "NGSTrainingV1.6"
+  AvailabilityZone:
+    Description: "NeCTAR availability zone where to launch the instance."
+    Label: "Availability Zone"
+    Type: "String"
+    Default: "monash-01"
+    AllowedValues: 
+      - "monash-01"
+      - "monash-02"
+      - "melbourne-qh2"
+      - "melbourne-np"
+      - "qld"
+      - "NCI"
+      - "sa"
+      - "tasmania"
+  UbuntuPassword:
+    Description: "Password for the local ubuntu user."
+    Label: "Ubuntu Password"
+    Type: "String"
+    NoEcho: "True"
+  DataQualityModule:
+    Description: "Install the Data Quality module in the instance."
+    Label: "Install Data Quality Module?"
+    Type: "String"
+    Default: "Yes"
+    AllowedValues: 
+      - "Yes"
+      - "No"
+  ChIPSeqModule:
+    Description: "Install the ChIP-Seq module in the instance."
+    Label: "Install ChIP-Seq Module?"
+    Type: "String"
+    Default: "Yes"
+    AllowedValues: 
+      - "Yes"
+      - "No"
+  RNASeqModule:
+    Description: "Install the RNA-Seq module in the instance."
+    Label: "Install RNA-Seq Module?"
+    Type: "String"
+    Default: "Yes"
+    AllowedValues: 
+      - "Yes"
+      - "No"
+  DeNovoModule:
+    Description: "Install the de novo module in the instance."
+    Label: "Install de novo Module?"
+    Type: "String"
+    Default: "Yes"
+    AllowedValues: 
+      - "Yes"
+      - "No"
+
+Mappings:
+  NGSImageName:
+    "NGSTrainingV1.6": { NGSImageID: 2850afc2-4dc9-4ce6-9eb6-c3f4d8fd412c }
+
+Resources:
+  NGSSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "Enable ssh (port 22) access"
+      SecurityGroupIngress:
+        - IpProtocol: "icmp"
+          FromPort: "-1"
+          ToPort: "-1"
+          CidrIp: "0.0.0.0/0"
+        - IpProtocol: "tcp"
+          FromPort: "22"
+          ToPort: "22"
+          CidrIp: "0.0.0.0/0"
+      
+  NGSInstance:
+    Type: "AWS::EC2::Instance"
+    Metadata:
+      AWS::CloudFormation::Init:
+        config:
+          packages:
+            apt:
+              freenx-server: []
+    Properties:
+      ImageId:
+        Fn::FindInMap:
+          - NGSImageName
+          - { Ref: ImageName}
+          - NGSImageID
+      InstanceType: { Ref: InstanceType }
+      KeyName: { Ref: KeyName }
+      SecurityGroups:
+        - { Ref: NGSSecurityGroup }
+      KeyName: { Ref: KeyName }
+      AvailabilityZone: { Ref: AvailabilityZone }
+      UserData:
+        Fn::Base64:
+          Fn::Replace:
+            - ubuntu_password: { Ref: UbuntuPassword }
+            - |
+              #!/bin/bash
+              echo "Bootstrapping NGS Instance ..."
+              # Set user password
+              echo "Setting password for ubuntu user ..."
+              echo -e "ubuntu:ubuntu_password" | chpasswd
+              # Set hostname
+              echo "127.0.0.1 $HOSTNAME" | tee -a /etc/hosts
+              # Download datasets
+              echo "Download relevant datasets, tools from NeCTAR Object Storage ..."
+              cd /home/ubuntu
+              wget https://raw.githubusercontent.com/BPA-CSIRO-Workshops/btp-catalogue/master/ngs-workshop/ngs_workshop.pp
+              wget https://raw.githubusercontent.com/BPA-CSIRO-Workshops/btp-catalogue/master/ngs-workshop/ngs_workshop.yaml
+              wget https://raw.githubusercontent.com/BPA-CSIRO-Workshops/btp-catalogue/master/ngs-workshop/hiera.yaml
+              puppet apply ngs_workshop.pp --hiera_config ./hiera.yaml
