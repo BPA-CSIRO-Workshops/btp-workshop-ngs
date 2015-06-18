@@ -7,9 +7,8 @@
     "iso_checksum": "fa0893ffe2188a6daf918791cdccb480",
     "iso_checksum_type": "md5",
     "format": "qcow2",
-    "headless": true,
+    "headless": false,
     "disk_size": 8192,
-    "shutdown_command": "echo 'ubuntu' | sudo -S shutdown -P now",
     "ssh_username": "root",
     "ssh_password": "B10P!@+f0rm$",
     "ssh_port": 22,
@@ -30,12 +29,9 @@
     "qemuargs": [
       [ "-m", "4096M" ],
       [ "-cpu", "host" ],
-      [ "-smp", "4" ]
+      [ "-smp", "1" ]
     ]
   }],
-  "push": {
-    "name": "jrevote/btp-build"
-  },
   "provisioners": [{
     "type": "shell",
     "scripts": [

@@ -39,38 +39,16 @@
     {
       "type": "shell",
       "scripts": [
-        "provisioners/preflight.sh",
+        "provisioners/common/preflight.sh",
         "provisioners/virtualbox/guest-additions.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/prepare.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/misc.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/scm.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/compilers.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/libraries.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/java.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/puppet.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/gnx-tools.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/fastqc.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/fastx-toolkit.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/picard.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/bowtie.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/bowtie2.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/samtools.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/bedtools.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/ucsctools.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/velvet.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/macs.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/peakanalyzer.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/tophat.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/tophat2.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/cufflinks.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/igv.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/igvtools.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/r.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/mummer.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/blat.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/amos.sh",
-        "btp-catalogue/ngs-workshop/ngs-tools/qiime.sh",
-        "provisioners/postflight.sh"
+        "provisioners/common/prepare.sh",
+        "provisioners/common/misc.sh",
+        "provisioners/common/scm.sh",
+        "provisioners/common/compilers.sh",
+        "provisioners/common/libraries.sh",
+        "provisioners/common/java.sh",
+        "provisioners/common/puppet.sh",
+        "provisioners/common/postflight.sh"
       ],
       "pause_before": "10s",
       "override": {
@@ -81,68 +59,68 @@
     },
     {
       "type": "file",
-      "source": "btp-module-ngs-qc/datasets/ngs-qc.yaml",
-      "destination": "/tmp/ngs-qc.yaml"
-    },
-    {
-      "type": "shell",
-      "inline": ["mv /tmp/ngs-qc.yaml /etc/puppet/"],
-      "override": {
-        "virtualbox-iso": {
-          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
-        }
-      }
+      "source": "../../050_ngs-qc/datasets/ngs-qc-data.yaml",
+      "destination": "/tmp/ngs-qc-data.yaml"
     },
     {
       "type": "file",
-      "source": "btp-module-chip-seq/datasets/ngs-chipseq.yaml",
-      "destination": "/tmp/ngs-chipseq.yaml"
-    },
-    {
-      "type": "shell",
-      "inline": ["mv /tmp/ngs-chipseq.yaml /etc/puppet/"],
-      "override": {
-        "virtualbox-iso": {
-          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
-        }
-      }
+      "source": "../../050_ngs-qc/tools/ngs-qc-tools.yaml",
+      "destination": "/tmp/ngs-qc-tools.yaml"
     },
     {
       "type": "file",
-      "source": "btp-module-ngs-mapping/datasets/ngs-mapping.yaml",
-      "destination": "/tmp/ngs-mapping.yaml"
-    },
-    {
-      "type": "shell",
-      "inline": ["mv /tmp/ngs-mapping.yaml /etc/puppet/"],
-      "override": {
-        "virtualbox-iso": {
-          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
-        }
-      }
+      "source": "../../060_alignment/datasets/ngs-mapping-data.yaml",
+      "destination": "/tmp/ngs-mapping-data.yaml"
     },
     {
       "type": "file",
-      "source": "btp-module-velvet/datasets/ngs-denovo.yaml",
-      "destination": "/tmp/ngs-denovo.yaml"
-    },
-    {
-      "type": "shell",
-      "inline": ["mv /tmp/ngs-denovo.yaml /etc/puppet/"],
-      "override": {
-        "virtualbox-iso": {
-          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
-        }
-      }
+      "source": "../../060_alignment/tools/ngs-mapping-tools.yaml",
+      "destination": "/tmp/ngs-mapping-tools.yaml"
     },
     {
       "type": "file",
-      "source": "btp-module-rna-seq/datasets/ngs-rnaseq.yaml",
-      "destination": "/tmp/ngs-rnaseq.yaml"
+      "source": "../../070_chip-seq/datasets/ngs-chipseq-data.yaml",
+      "destination": "/tmp/ngs-chipseq-data.yaml"
+    },
+    {
+      "type": "file",
+      "source": "../../070_chip-seq/tools/ngs-chipseq-tools.yaml",
+      "destination": "/tmp/ngs-chipseq-tools.yaml"
+    },
+    {
+      "type": "file",
+      "source": "../../080_rna-seq/datasets/ngs-rnaseq-data.yaml",
+      "destination": "/tmp/ngs-rnaseq-data.yaml"
+    },
+    {
+      "type": "file",
+      "source": "../../080_rna-seq/tools/ngs-rnaseq-tools.yaml",
+      "destination": "/tmp/ngs-rnaseq-tools.yaml"
+    },
+    {
+      "type": "file",
+      "source": "../../090_velvet/datasets/ngs-denovo-data.yaml",
+      "destination": "/tmp/ngs-denovo-data.yaml"
+    },
+    {
+      "type": "file",
+      "source": "../../090_velvet/tools/ngs-denovo-tools.yaml",
+      "destination": "/tmp/ngs-denovo-tools.yaml"
     },
     {
       "type": "shell",
-      "inline": ["mv /tmp/ngs-rnaseq.yaml /etc/puppet/"],
+      "inline": [
+        "mv /tmp/ngs-qc-data.yaml /etc/puppet/",
+        "mv /tmp/ngs-qc-tools.yaml /etc/puppet/",
+        "mv /tmp/ngs-mapping-data.yaml /etc/puppet/",
+        "mv /tmp/ngs-mapping-tools.yaml /etc/puppet/",
+        "mv /tmp/ngs-chipseq-data.yaml /etc/puppet/",
+        "mv /tmp/ngs-chipseq-tools.yaml /etc/puppet/",
+        "mv /tmp/ngs-rnaseq-data.yaml /etc/puppet/",
+        "mv /tmp/ngs-rnaseq-tools.yaml /etc/puppet/",
+        "mv /tmp/ngs-denovo-data.yaml /etc/puppet/",
+        "mv /tmp/ngs-denovo-tools.yaml /etc/puppet/"
+      ],
       "override": {
         "virtualbox-iso": {
           "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
@@ -151,32 +129,62 @@
     },
     {
       "type": "puppet-masterless",
-      "manifest_file": "btp-catalogue/ngs-workshop/btp.pp",
-      "hiera_config_path": "btp-module-ngs-qc/datasets/ngs-qc-hiera.yaml",
+      "manifest_file": "../../050_ngs-qc/datasets/btp.pp",
+      "hiera_config_path": "../../050_ngs-qc/datasets/ngs-qc-data-hiera.yaml",
       "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
     },
     {
       "type": "puppet-masterless",
-      "manifest_file": "btp-catalogue/ngs-workshop/btp.pp",
-      "hiera_config_path": "btp-module-chip-seq/datasets/ngs-chipseq-hiera.yaml",
+      "manifest_file": "../../050_ngs-qc/tools/btp.pp",
+      "hiera_config_path": "../../050_ngs-qc/tools/ngs-qc-tools-hiera.yaml",
       "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
     },
     {
       "type": "puppet-masterless",
-      "manifest_file": "btp-catalogue/ngs-workshop/btp.pp",
-      "hiera_config_path": "btp-module-ngs-mapping/datasets/ngs-mapping-hiera.yaml",
+      "manifest_file": "../../060_alignment/datasets/btp.pp",
+      "hiera_config_path": "../../060_alignment/datasets/ngs-mapping-data-hiera.yaml",
       "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
     },
     {
       "type": "puppet-masterless",
-      "manifest_file": "btp-catalogue/ngs-workshop/btp.pp",
-      "hiera_config_path": "btp-module-velvet/datasets/ngs-denovo-hiera.yaml",
+      "manifest_file": "../../060_alignment/tools/btp.pp",
+      "hiera_config_path": "../../060_alignment/tools/ngs-mapping-tools-hiera.yaml",
       "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
     },
     {
       "type": "puppet-masterless",
-      "manifest_file": "btp-catalogue/ngs-workshop/btp.pp",
-      "hiera_config_path": "btp-module-rna-seq/datasets/ngs-rnaseq-hiera.yaml",
+      "manifest_file": "../../070_chip-seq/datasets/btp.pp",
+      "hiera_config_path": "../../070_chip-seq/datasets/ngs-chipseq-data-hiera.yaml",
+      "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "../../070_chip-seq/tools/btp.pp",
+      "hiera_config_path": "../../070_chip-seq/tools/ngs-chipseq-tools-hiera.yaml",
+      "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "../../080_rna-seq/datasets/btp.pp",
+      "hiera_config_path": "../../080_rna-seq/datasets/ngs-rnaseq-data-hiera.yaml",
+      "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "../../080_rna-seq/tools/btp.pp",
+      "hiera_config_path": "../../080_rna-seq/tools/ngs-rnaseq-tools-hiera.yaml",
+      "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "../../090_velvet/datasets/btp.pp",
+      "hiera_config_path": "../../090_velvet/datasets/ngs-denovo-data-hiera.yaml",
+      "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "../../090_velvet/tools/btp.pp",
+      "hiera_config_path": "../../090_velvet/tools/ngs-denovo-tools-hiera.yaml",
       "execute_command": "{{.FacterVars}}{{if .Sudo}} echo 'ubuntu' | sudo -S -E {{end}}puppet apply --verbose --parser future {{if ne .ModulePath \"\"}}--modulepath='{{.ModulePath}}' {{end}} {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
     },
     {
