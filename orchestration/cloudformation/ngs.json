@@ -11,7 +11,7 @@
     },
 
     "InstanceType" : {
-      "Description" : "WebServer EC2 instance type",
+      "Description" : "EC2 instance type",
       "Type" : "String",
       "Default" : "m1.small",
       "AllowedValues" : [ "t1.micro", "t2.micro", "t2.small", "t2.medium", "m1.small", "m1.medium", "m1.large", "m1.xlarge", "m2.xlarge", "m2.2xlarge", "m2.4xlarge", "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", "c1.medium", "c1.xlarge", "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge", "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge", "g2.2xlarge", "r3.large", "r3.xlarge", "r3.2xlarge", "r3.4xlarge", "r3.8xlarge", "i2.xlarge", "i2.2xlarge", "i2.4xlarge", "i2.8xlarge", "d2.xlarge", "d2.2xlarge", "d2.4xlarge", "d2.8xlarge", "hi1.4xlarge", "hs1.8xlarge", "cr1.8xlarge", "cc2.8xlarge", "cg1.4xlarge"]
@@ -90,7 +90,7 @@
     },
 
     "AWSRegionArch2AMI" : {
-      "ap-southeast-2" : { "PV64" : "ami-179fe22d" }
+      "ap-southeast-2" : { "PV64" : "ami-67b3c95d" }
     }
 
   },
@@ -110,47 +110,75 @@
                      "/usr/bin/add-apt-repository ppa:freenx-team -y",
                      "apt-get update",
                      "apt-get install -y freenx",
-                     "# Mount Device",
-                     "mkfs -t ext4 /dev/xvdc",
-                     "mount /dev/xvdc /mnt",
                      "# Set Hostname",
                      "echo \"127.0.0.1 $HOSTNAME\" | tee -a /etc/hosts",
-                     "# NGS QC Module",
+                     "###########",
+                     "# QC Module",
+                     "###########",
                      "cd /tmp/",
                      "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-qc.git",
-                     "cp btp-module-ngs-qc/datasets/ngs-qc-aws.yaml /etc/puppet/",
-                     "cp btp-module-ngs-qc/datasets/ngs-qc-hiera-aws.yaml /etc/puppet/",
-                     "# NGS ChIP-Seq Module",
-                     "cd /tmp/",
-                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-chip-seq.git",
-                     "cp btp-module-chip-seq/datasets/ngs-chipseq-aws.yaml /etc/puppet/",
-                     "cp btp-module-chip-seq/datasets/ngs-chipseq-hiera-aws.yaml /etc/puppet/",
-                     "# NGS Mapping Module",
+                     "cd btp-module-ngs-qc",
+                     "cp tools/ngs-qc-tools.yaml /etc/puppet/",
+                     "cp tools/ngs-qc-tools-hiera.yaml /etc/puppet/",
+                     "cp datasets/ngs-qc-data-aws.yaml /etc/puppet/",
+                     "cp datasets/ngs-qc-data-hiera-aws.yaml /etc/puppet/",
+                     "################",
+                     "# Mapping Module",
+                     "################",
                      "cd /tmp/",
                      "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-mapping.git",
-                     "cp btp-module-ngs-mapping/datasets/ngs-mapping-aws.yaml /etc/puppet/",
-                     "cp btp-module-ngs-mapping/datasets/ngs-mapping-hiera-aws.yaml /etc/puppet/",
-                     "# NGS Assembly Module",
+                     "cd btp-module-ngs-mapping",
+                     "cp tools/ngs-mapping-tools.yaml /etc/puppet/",
+                     "cp tools/ngs-mapping-tools-hiera.yaml /etc/puppet/",
+                     "cp datasets/ngs-mapping-data-aws.yaml /etc/puppet/",
+                     "cp datasets/ngs-mapping-data-hiera-aws.yaml /etc/puppet/",
+                     "#################",
+                     "# ChIP-Seq Module",
+                     "#################",
                      "cd /tmp/",
-                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-velvet.git",
-                     "cp btp-module-velvet/datasets/ngs-denovo-aws.yaml /etc/puppet/",
-                     "cp btp-module-velvet/datasets/ngs-denovo-hiera-aws.yaml /etc/puppet/",
-                     "# NGS RNA-Seq Module",
+                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-chip-seq.git",
+                     "cd btp-module-chip-seq",
+                     "cp tools/ngs-chipseq-tools.yaml /etc/puppet/",
+                     "cp tools/ngs-chipseq-tools-hiera.yaml /etc/puppet/",
+                     "cp datasets/ngs-chipseq-data-aws.yaml /etc/puppet/",
+                     "cp datasets/ngs-chipseq-data-hiera-aws.yaml /etc/puppet/",
+                     "################",
+                     "# RNA-Seq Module",
+                     "################",
                      "cd /tmp/",
                      "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-rna-seq.git",
-                     "cp btp-module-rna-seq/datasets/ngs-rnaseq-aws.yaml /etc/puppet/",
-                     "cp btp-module-rna-seq/datasets/ngs-rnaseq-hiera-aws.yaml /etc/puppet/",
-                     "# Apply Puppet Modules",
+                     "cd btp-module-rna-seq",
+                     "cp tools/ngs-rnaseq-tools.yaml /etc/puppet/",
+                     "cp tools/ngs-rnaseq-tools-hiera.yaml /etc/puppet/",
+                     "cp datasets/ngs-rnaseq-data-aws.yaml /etc/puppet/",
+                     "cp datasets/ngs-rnaseq-data-hiera-aws.yaml /etc/puppet/",
+                     "################",
+                     "# de novo Module",
+                     "################",
                      "cd /tmp/",
-                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-catalogue.git",
-                     "puppet apply --verbose --parser future btp-catalogue/ngs-workshop/btp.pp --hiera_config=/etc/puppet/ngs-qc-hiera-aws.yaml",
-                     "puppet apply --verbose --parser future btp-catalogue/ngs-workshop/btp.pp --hiera_config=/etc/puppet/ngs-chipseq-hiera-aws.yaml",
-                     "puppet apply --verbose --parser future btp-catalogue/ngs-workshop/btp.pp --hiera_config=/etc/puppet/ngs-mapping-hiera-aws.yaml",
-                     "puppet apply --verbose --parser future btp-catalogue/ngs-workshop/btp.pp --hiera_config=/etc/puppet/ngs-denovo-hiera-aws.yaml",
-                     "puppet apply --verbose --parser future btp-catalogue/ngs-workshop/btp.pp --hiera_config=/etc/puppet/ngs-rnaseq-hiera-aws.yaml",
+                     "git clone https://github.com/BPA-CSIRO-Workshops/btp-module-velvet.git",
+                     "cd btp-module-velvet",
+                     "cp tools/ngs-denovo-tools.yaml /etc/puppet/",
+                     "cp tools/ngs-denovo-tools-hiera.yaml /etc/puppet/",
+                     "cp datasets/ngs-denovo-data-aws.yaml /etc/puppet/",
+                     "cp datasets/ngs-denovo-data-hiera-aws.yaml /etc/puppet/",
+                     "######################",
+                     "# Apply Puppet Modules",
+                     "######################",
+                     "puppet apply --verbose --parser future /tmp/btp-module-ngs-qc/tools/btp.pp --hiera_config=/etc/puppet/ngs-qc-tools-hiera.yaml",
+                     "puppet apply --verbose --parser future /tmp/btp-module-ngs-mapping/tools/btp.pp --hiera_config=/etc/puppet/ngs-mapping-tools-hiera.yaml",
+                     "puppet apply --verbose --parser future /tmp/btp-module-chip-seq/tools/btp.pp --hiera_config=/etc/puppet/ngs-chipseq-tools-hiera.yaml",
+                     "puppet apply --verbose --parser future /tmp/btp-module-rna-seq/tools/btp.pp --hiera_config=/etc/puppet/ngs-rnaseq-tools-hiera.yaml",
+                     "puppet apply --verbose --parser future /tmp/btp-module-velvet/tools/btp.pp --hiera_config=/etc/puppet/ngs-denovo-tools-hiera.yaml",
+                     "puppet apply --verbose --parser future /tmp/btp-module-ngs-qc/datasets/btp.pp --hiera_config=/etc/puppet/ngs-qc-data-hiera-aws.yaml",
+                     "puppet apply --verbose --parser future /tmp/btp-module-ngs-mapping/datasets/btp.pp --hiera_config=/etc/puppet/ngs-mapping-data-hiera-aws.yaml",
+                     "puppet apply --verbose --parser future /tmp/btp-module-chip-seq/datasets/btp.pp --hiera_config=/etc/puppet/ngs-chipseq-data-hiera-aws.yaml",
+                     "puppet apply --verbose --parser future /tmp/btp-module-rna-seq/datasets/btp.pp --hiera_config=/etc/puppet/ngs-rnaseq-data-hiera-aws.yaml",
+                     "puppet apply --verbose --parser future /tmp/btp-module-velvet/datasets/btp.pp --hiera_config=/etc/puppet/ngs-denovo-data-hiera-aws.yaml",
+                     "#########",
                      "# Manuals",
+                     "#########",
                      "su trainee -c \"curl -o /home/trainee/Desktop/trainee_handout.pdf http://bpa-csiro-workshops.github.io/btp-workshop-ngs/pdfs-latest/trainee_handout.pdf\"",
-                     "su trainee -c \"curl -o /home/trainee/Desktop/trainer_handout.pdf http://bpa-csiro-workshops.github.io/btp-workshop-ngs/pdfs-latest/trainer_handout.pdf\"",
                      "# Set Trainee Credentials",
                      {
                        "Fn::Join": [ "", [
@@ -174,24 +202,7 @@
           "CidrIp" : { "Ref" : "SSHLocation"}
         } ]
       }
-    },
-
-    "BTPVolume" : {
-      "Type" : "AWS::EC2::Volume",
-      "Properties" : {
-        "Size" : "100",
-        "AvailabilityZone" : { "Fn::GetAtt" : [ "BTPInstance", "AvailabilityZone" ] }
-      }
-    },
-
-    "MountPoint" : {
-      "Type" : "AWS::EC2::VolumeAttachment",
-      "Properties" : {
-        "InstanceId" : { "Ref" : "BTPInstance" },
-        "VolumeId" : { "Ref" : "BTPVolume" },
-        "Device" : "/dev/sdc"
-      }
-    } 
+    }
   },
 
   "Outputs" : {
