@@ -2,15 +2,16 @@
   "description": "BTP Image Deployment for QEMU",
   "builders": [{
     "type": "qemu",
-    "vm_name": "ngs",
+    "vm_name": "btp",
+    "http_directory": "precise",
     "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.5-alternate-amd64.iso",
     "iso_checksum": "fa0893ffe2188a6daf918791cdccb480",
     "iso_checksum_type": "md5",
     "format": "qcow2",
     "headless": false,
     "disk_size": 8192,
-    "ssh_username": "root",
-    "ssh_password": "B10P!@+f0rm$",
+    "ssh_username": "ubuntu",
+    "ssh_password": "ubuntu",
     "ssh_port": 22,
     "ssh_wait_timeout": "60m",
     "boot_wait": "10s",
@@ -27,7 +28,7 @@
     ],
     "output_directory": "output_qemu",
     "qemuargs": [
-      [ "-m", "4096M" ],
+      [ "-m", "2048M" ],
       [ "-cpu", "host" ],
       [ "-smp", "1" ]
     ]
@@ -41,7 +42,13 @@
       "provisioners/nectar/fail2ban.sh",
       "provisioners/nectar/cleanup.sh",
       "provisioners/nectar/zerodisk.sh"
-      ]
+      ],
+      "pause_before": "10s",
+      "override": {
+        "qemu": {
+          "execute_command": "echo 'ubuntu' | sudo -S bash {{.Path}}"
+        }
+      }
     }
   ]
 }
