@@ -11,3 +11,6 @@ apt-get install -y gnome-session-fallback
 
 # Disable LTS Upgrade Notification
 sed -i 's/Prompt=lts/Prompt=never/g' /etc/update-manager/release-upgrades
+
+# Clean
+apt-get clean
