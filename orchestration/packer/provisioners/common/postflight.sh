@@ -13,4 +13,5 @@ apt-get install -y gnome-session-fallback
 sed -i 's/Prompt=lts/Prompt=never/g' /etc/update-manager/release-upgrades
 
 # Clean
-apt-get clean
+apt-get -y autoclean
+apt-get -y clean
