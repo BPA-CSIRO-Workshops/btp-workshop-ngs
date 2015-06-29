@@ -28,7 +28,7 @@
     ],
     "output_directory": "output_qemu",
     "qemuargs": [
-      [ "-m", "2048M" ],
+      [ "-m", "4096M" ],
       [ "-cpu", "host" ],
       [ "-smp", "1" ]
     ]
@@ -36,6 +36,15 @@
   "provisioners": [{
     "type": "shell",
     "scripts": [
+      "provisioners/common/preflight.sh",
+      "provisioners/common/prepare.sh",
+      "provisioners/common/misc.sh",
+      "provisioners/common/scm.sh",
+      "provisioners/common/compilers.sh",
+      "provisioners/common/libraries.sh",
+      "provisioners/common/java.sh",
+      "provisioners/common/puppet.sh",
+      "provisioners/common/postflight.sh",
       "provisioners/nectar/banner.sh",
       "provisioners/nectar/security.sh",
       "provisioners/nectar/openstack-debian.sh",
