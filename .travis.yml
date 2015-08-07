@@ -1,6 +1,6 @@
 env:
   global:
-    - PATH: /usr/local/texlive/bin/x86_64-linux:$PATH
+    - PATH: ${HOME}/texlive/bin/x86_64-linux:$PATH
     - GH_REF: github.com/${TRAVIS_REPO_SLUG}.git
     - secure: "J/oFevIbuIyl1P16qdSVaNeJ0P1rL5Hub92SlDcNmhZ6NGu7+9N43fDs+uf3ihCmu664wZDKzB8YACetOfZ+XrZ9M72IfI3CzA7OWrx8elsub+WvaaOeVp3D+tDgNzxhXVRVJl5jZMmgEh5KjZ6GNshuTEPrIN+14s8bR4CciEM="
 git:
@@ -8,7 +8,8 @@ git:
 before_install:
   - git submodule update --init --recursive
 before_script:
-  - cd ./developers/ && sudo -E ./texlive_install.sh && cd ../
+  - sed -i -e "s:/usr/local:${HOME}:" developers/texlive.profile
+  - cd ./developers/ && ./texlive_install.sh && cd ../
 script: make
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then bash ./developers/deploy-ghpages.sh; fi
