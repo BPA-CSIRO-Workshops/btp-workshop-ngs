@@ -55,7 +55,7 @@ packages=(
   colortbl
   hyperref
 )
-/usr/local/texlive/bin/x86_64-linux/tlmgr \
+tlmgr \
   -repository ${CTAN_MIRROR_URL:-'http://mirror.ctan.org'}/systems/texlive/tlnet \
   install \
     ${packages[@]}
