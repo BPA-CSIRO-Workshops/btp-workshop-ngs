@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/BPA-CSIRO-Workshops/btp-workshop-ngs.png?branch=master)](https://travis-ci.org/BPA-CSIRO-Workshops/btp-workshop-ngs) [![DOI](https://zenodo.org/badge/6197/BPA-CSIRO-Workshops/ngs-handout.svg)](http://dx.doi.org/10.5281/zenodo.14078)
+[![Build Status](https://travis-ci.org/BPA-CSIRO-Workshops/btp-workshop-ngs.png?branch=master)](https://travis-ci.org/BPA-CSIRO-Workshops/btp-workshop-ngs)
 
 Table of Contents
 =================
