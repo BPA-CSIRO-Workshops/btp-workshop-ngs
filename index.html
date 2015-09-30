@@ -22,13 +22,34 @@
 
 
         <ul>
-          <li><a href="pdfs-latest/trainee_handout.pdf">Download <strong>Trainee PDF</strong></a></li>
-          <li><a href="pdfs-latest/trainer_handout.pdf">Download <strong>Trainer PDF</strong></a></li>
+          <li><a href="https://github.com/BPA-CSIRO-Workshops/btp-workshop-ngs/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/BPA-CSIRO-Workshops/btp-workshop-ngs/tarball/master">Download <strong>TAR Ball</strong></a></li>
           <li><a href="https://github.com/BPA-CSIRO-Workshops/btp-workshop-ngs">View On <strong>GitHub</strong></a></li>
         </ul>
       </header>
       <section>
-        <p><a href="https://travis-ci.org/BPA-CSIRO-Workshops/btp-workshop-ngs"><img src="https://travis-ci.org/BPA-CSIRO-Workshops/btp-workshop-ngs.svg?branch=master" alt="Build Status"></a></p>
+        <p><a href="https://travis-ci.org/BPA-CSIRO-Workshops/btp-workshop-ngs"><img src="https://travis-ci.org/BPA-CSIRO-Workshops/btp-workshop-ngs.png?branch=master" alt="Build Status"></a></p>
+
+<h1>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table of Contents</h1>
+
+
+
+<ul>
+<li><a href="#homepage-and-pdfs">Homepage and PDFs</a></li>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#building-pdfs-from-latex-source">Building PDFs from LaTeX Source</a></li>
+<li><a href="#credits">Credits</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+
+
+
+<h1>
+<a id="homepage-and-pdfs" class="anchor" href="#homepage-and-pdfs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Homepage and PDFs</h1>
+
+<p>You can access the homepage, and up-to-date PDFs, for this project at
+<a href="http://bpa-csiro-workshops.github.io/btp-workshop-ngs">http://bpa-csiro-workshops.github.io/btp-workshop-ngs</a></p>
 
 <h1>
 <a id="purpose" class="anchor" href="#purpose" aria-hidden="true"><span class="octicon octicon-link"></span></a>Purpose</h1>
@@ -37,64 +58,27 @@
 consistently styled handout documents for use in hands-on bioinformatics
 training workshops.</p>
 
-<h1>
-<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h1>
-
-<ul>
-<li>Consistent styling of text blocks using:
-
-<ul>
-<li>Margin icons to guide the readers eye</li>
-<li>Background shading to increase emphasis of important blocks</li>
-</ul>
-</li>
-<li>Code blocks styled for easy copy-and-paste operations</li>
-<li>Ability to maintain trainer-specific and trainee-specific content in the same source file</li>
-<li>Trainee-specific styling:
-
-<ul>
-<li>Answers to questions hidden</li>
-<li>Additional vertical space provided following posed questions to allow sufficent room to write answers</li>
-</ul>
-</li>
-<li>Trainer-specific styling:
-
-<ul>
-<li>Red transperent background on front page</li>
-<li>"Trainer's Manual" text in footer of all pages</li>
-<li>Answers to questions displayed in red text</li>
-</ul>
-</li>
-</ul>
+<p>You can find full details of what this repository is all about how to use it at:
+<a href="http://BPA-CSIRO-Workshops.github.io/handout-template/">http://BPA-CSIRO-Workshops.github.io/handout-template/</a></p>
 
 <h1>
-<a id="how-to-use-this-style" class="anchor" href="#how-to-use-this-style" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Use this Style</h1>
+<a id="building-pdfs-from-latex-source" class="anchor" href="#building-pdfs-from-latex-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building PDFs from LaTeX Source</h1>
 
-<p>This still needs to be documented. However, we'll probably provide an example
-repository showing how to use the various features of this style file. Stay tuned.</p>
+<p>First you need to install texlive and a bunch of LaTeX packages. To make this
+easy we have provided a script to do this:</p>
 
-<h1>
-<a id="installing-the-latex-environment" class="anchor" href="#installing-the-latex-environment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing the LateX Environment</h1>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> developers
+sudo ./texlive_install.sh
+<span class="pl-c1">cd</span> ../</pre></div>
 
-<p>In order to build a PDF from LaTeX source files. You'll first need to install LaTeX
-and some other LaTeX packages to get this style file to work.</p>
+<p>Secondly, you need to add the location of the texlive binary's to your PATH. If
+you installed texlive using the supplied script, the following should work:</p>
 
-<p>We provide a script (<code>install_latex.sh</code>) which downloads and installs LaTeX,
-as well as all the packages required for this style. Simply clone this
-repository and run that script and you should have LaTeX ready to go in just
-a few minutes:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-k">export</span> PATH=/usr/local/texlive/2013/bin/x86_64-linux:<span class="pl-smi">$PATH</span></pre></div>
 
-<div class="highlight highlight-source-shell"><pre>git clone https://github.com/BioplatformsAustralia/LaTeX-style.git
-<span class="pl-c1">cd</span> LaTeX-style.git
-sudo ./install_latex.sh</pre></div>
+<p>Now you're ready to build the PDFs using the supplied Makefile:</p>
 
-<p>By default, the above script will download LaTeX packages from the default CTAN mirror.
-You will benefit from faster downloads and a quicker install if you use a mirror closer
-to where you are. To change the mirror, simply set the environmental variable
-<code>CTAN_MIRROR_URL</code> to point to your favourite CTAN mirror (<a href="http://ctan.org/mirrors">http://ctan.org/mirrors</a>):</p>
-
-<div class="highlight highlight-source-shell"><pre><span class="pl-k">export</span> CTAN_MIRROR_URL=<span class="pl-s"><span class="pl-pds">'</span>http://mirror.aarnet.edu.au/pub/CTAN<span class="pl-pds">'</span></span>
-sudo -E ./install_latex.sh</pre></div>
+<div class="highlight highlight-source-shell"><pre>make</pre></div>
 
 <h1>
 <a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h1>
@@ -113,7 +97,7 @@ please see:
 <a href="http://creativecommons.org/licenses/by/3.0/deed.en_GB">http://creativecommons.org/licenses/by/3.0/deed.en_GB</a></p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/BPA-CSIRO-Workshops">Bioplatforms Australia and CSIRO Bioinformatics Core</a></p>
+        <p>This project is maintained by <a href="https://github.com/BPA-CSIRO-Workshops">BPA-CSIRO-Workshops</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
