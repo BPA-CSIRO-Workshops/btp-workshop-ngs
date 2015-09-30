@@ -11,5 +11,5 @@ mkdir -p pdfs-latest
 rm -f pdfs-latest/*.pdf
 cp -Rf ../*.pdf ./pdfs-latest
 git add -f .
-git commit -m "Lastest PDFs on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
+git commit -m "Latest PDFs on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
 git push -fq origin gh-pages > /dev/null
