@@ -1,24 +1,24 @@
 [submodule "style"]
 	path = style
-	url = git://github.com/BPA-CSIRO-Workshops/workshop-style.git
+	url = https://github.com/BPA-CSIRO-Workshops/btp-handout-style.git
 [submodule "050_ngs-qc"]
 	path = 050_ngs-qc
-	url = https://github.com/BPA-CSIRO-Workshops/module-ngs-qc.git
+	url = https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-qc.git
 [submodule "070_chip-seq"]
 	path = 070_chip-seq
-	url = https://github.com/BPA-CSIRO-Workshops/module-chip-seq.git
+	url = https://github.com/BPA-CSIRO-Workshops/btp-module-chip-seq.git
 [submodule "080_rna-seq"]
 	path = 080_rna-seq
-	url = https://github.com/BPA-CSIRO-Workshops/module-rna-seq.git
+	url = https://github.com/BPA-CSIRO-Workshops/btp-module-rna-seq.git
 [submodule "060_alignment"]
 	path = 060_alignment
-	url = https://github.com/BPA-CSIRO-Workshops/module-ngs-alignment.git
+	url = https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-mapping.git
 [submodule "905_post-workshop"]
 	path = 905_post-workshop
-	url = git://github.com/BPA-CSIRO-Workshops/module-nectar.git
+	url = https://github.com/BPA-CSIRO-Workshops/btp-module-nectar.git
 [submodule "090_velvet"]
 	path = 090_velvet
-	url = git://github.com/BPA-CSIRO-Workshops/module-ngs-de_novo-assembly.git
+	url = https://github.com/BPA-CSIRO-Workshops/btp-module-velvet.git
 [submodule "orchestration"]
 	path = orchestration
 	url = https://github.com/BPA-CSIRO-Workshops/btp-orchestration.git
