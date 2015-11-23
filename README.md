@@ -13,7 +13,7 @@ Table of Contents
 Homepage and PDFs
 =================
 You can access the homepage, and up-to-date PDFs, for this project at
-http://bpa-csiro-workshops.github.io/btp-workshop-ngs
+http://bpa-csiro-workshops.github.io/btp-workshop-ngs.
 
 Purpose
 =======
