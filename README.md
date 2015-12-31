@@ -1,56 +1,23 @@
-[![Build Status](https://travis-ci.org/BPA-CSIRO-Workshops/btp-workshop-ngs.png?branch=master)](https://travis-ci.org/BPA-CSIRO-Workshops/btp-workshop-ngs)
+# btp-workshop-ngs
+Bioinformatics Training Platform (BTP) Workshop: Introduction to Next Generation Sequencing Hands-on Workshop
 
-Table of Contents
-=================
-<!-- toc -->
-* [Homepage and PDFs](#homepage-and-pdfs)
-* [Purpose](#purpose)
-* [Building PDFs from LaTeX Source](#building-pdfs-from-latex-source)
-* [Credits](#credits)
-* [License](#license)
-
-<!-- toc stop -->
-Homepage and PDFs
-=================
-You can access the homepage, and up-to-date PDFs, for this project at
-http://bpa-csiro-workshops.github.io/btp-workshop-ngs.
-
-Purpose
-=======
-This repository contains style information for use with LaTeX to generate
-consistently styled handout documents for use in hands-on bioinformatics
-training workshops.
-
-You can find full details of what this repository is all about how to use it at:
-http://BPA-CSIRO-Workshops.github.io/handout-template/
-
-Building PDFs from LaTeX Source
-===============================
-First you need to install texlive and a bunch of LaTeX packages. To make this
-easy we have provided a script to do this:
-```bash
-cd developers
-sudo ./texlive_install.sh
-cd ../
-```
-
-Secondly, you need to add the location of the texlive binary's to your PATH. If
-you installed texlive using the supplied script, the following should work:
-```bash
-export PATH=/usr/local/texlive/2013/bin/x86_64-linux:$PATH
-```
-
-Now you're ready to build the PDFs using the supplied Makefile:
-```bash
-make
-```
-
-Credits
-=======
-This style was originally designed for the Next Generation Sequencing (NGS)
-hands-on workshop developed by Bioplatforms Australia (BPA), CSIRO
-Bioinformatics Core and the EBI. It was written predominantly by Nathan S.
-Watson-Haigh.
+  * Topics
+    1. NGS Quality Control
+    2. NGS Read Mapping
+    3. ChIP-Seq
+    4. RNA-Seq
+    5. *de novo* assembly using Velvet
+    6. Using the Australian NeCTAR Research Cloud
+  * Target Audience
+    * Biologists
+	* Non-bioinformaticians
+	* Little to no programming expereience
+  * Prerequisites
+    * None
+  * Time Required
+    * 3 days
+  * Compute Requirements
+    * 
 
 License
 =======
