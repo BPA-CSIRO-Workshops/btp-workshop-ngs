@@ -17,7 +17,8 @@ Bioinformatics Training Platform (BTP) Workshop: Introduction to Next Generation
   * Time Required
     * 3 days
   * Compute Requirements
-    * 
+    * Minimum: 2 CPUs, 8GB RAM, 30GB Storage
+    * Recommended: 4 CPUs, 16GB RAM, 50GB Storage
 
 License
 =======
