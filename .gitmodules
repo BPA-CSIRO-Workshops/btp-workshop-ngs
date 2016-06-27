@@ -22,3 +22,6 @@
 [submodule "orchestration"]
 	path = orchestration
 	url = https://github.com/BPA-CSIRO-Workshops/btp-orchestration.git
+[submodule "020_cmd-intro"]
+	path = 020_cmd-intro
+	url = https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-cli.git
