@@ -10,14 +10,14 @@
 [submodule "modules/rna-seq"]
 	path = modules/rna-seq
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-rna-seq.git
-[submodule "060_alignment"]
+[submodule "modules/alignment"]
 	path = modules/alignment
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-mapping.git
-[submodule "905_post-workshop"]
-	path = 905_post-workshop
+[submodule "modules/post-workshop"]
+	path = modules/post-workshop
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-nectar.git
-[submodule "090_velvet"]
-	path = 090_velvet
+[submodule "modules/velvet"]
+	path = modules/velvet
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-velvet.git
 [submodule "orchestration"]
 	path = orchestration
