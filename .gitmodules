@@ -7,8 +7,8 @@
 [submodule "070_chip-seq"]
 	path = 070_chip-seq
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-chip-seq.git
-[submodule "080_rna-seq"]
-	path = 080_rna-seq
+[submodule "modules/rna-seq"]
+	path = modules/rna-seq
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-rna-seq.git
 [submodule "060_alignment"]
 	path = 060_alignment
