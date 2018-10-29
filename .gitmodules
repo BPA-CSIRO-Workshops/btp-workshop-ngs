@@ -11,7 +11,7 @@
 	path = modules/rna-seq
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-rna-seq.git
 [submodule "060_alignment"]
-	path = 060_alignment
+	path = modules/alignment
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-mapping.git
 [submodule "905_post-workshop"]
 	path = 905_post-workshop
@@ -22,6 +22,6 @@
 [submodule "orchestration"]
 	path = orchestration
 	url = https://github.com/BPA-CSIRO-Workshops/btp-orchestration.git
-[submodule "020_cmd-intro"]
-	path = 020_cmd-intro
+[submodule "modules/cmd-intro"]
+	path = modules/cmd-intro
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-cli.git
