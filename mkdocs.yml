@@ -1,0 +1,68 @@
+site_name: Introduction to NGS Workshop
+site_description: This contains all material for the Introduction to NGS workshop.
+site_author: Authors
+docs_dir: modules
+
+copyright: '&copy; The authors; 2017-'
+
+#Documentation and theme
+theme: material
+
+# Options
+extra:
+  palette:
+    primary: 'indigo'
+    accent: 'light blue'
+
+  feature:
+    tabs: false
+
+  site_favicon: 'media/logos/Bioplatforms-Australia-favicon2.png'
+
+markdown_extensions:
+    - admonition
+    - smarty
+    - tables
+    - markdown_include.include
+    - codehilite
+    - toc
+    - mdx_math
+    - pymdownx.betterem
+    - pymdownx.caret
+    - pymdownx.critic
+    - pymdownx.inlinehilite
+    - pymdownx.magiclink
+    - pymdownx.mark
+    - pymdownx.smartsymbols
+    - pymdownx.superfences
+    - pymdownx.tasklist
+    - pymdownx.tilde
+    - pymdownx.details
+
+extra_css:
+    #- css/extra.css
+    - css/details.css
+
+extra_javascript:
+    - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+    - js/details.js
+
+pages:
+- Home: index.md
+- The Trainers: trainers/trainers.md
+- Timetable: timetables/timetable_cancer.md
+- Workshop Information: preamble.md
+
+- Hands-on Modules:
+    - Introduction to Command Line: cli/handout/handout.md
+    - Quality Control: qc/handout/handout.md
+    - Read Alignment: alignment/handout/handout.md
+    - Single Nucleotide Variant Calling and Annotation: snv/handout/handout.md
+    - Copy Number Variation: cnv/handout/handout.md
+    - Structural Variant Analysis: sv/handout/handout.md
+    - Somatic Mutations:
+       - Assessing somatic mutational signatures: somatic/handout/signatures.md
+       - Cohort analysis for the identification of driver genes: somatic/handout/intogen.md
+    - Variant Visualisation: viz/handout/handout.md
+
+- License: license.md
