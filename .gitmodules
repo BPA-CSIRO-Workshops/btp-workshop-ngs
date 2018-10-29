@@ -1,8 +1,8 @@
 [submodule "style"]
 	path = style
 	url = https://github.com/BPA-CSIRO-Workshops/btp-handout-style.git
-[submodule "050_ngs-qc"]
-	path = 050_ngs-qc
+[submodule "modules/qc"]
+	path = modules/qc
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-qc.git
 [submodule "070_chip-seq"]
 	path = 070_chip-seq
