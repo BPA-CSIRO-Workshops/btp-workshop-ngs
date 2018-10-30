@@ -50,7 +50,7 @@ extra_javascript:
 pages:
 - Home: index.md
 - The Trainers: trainers/trainers.md
-- Workshop Information: preamble.md
+- Workshop Information: preamble/preamble.md
 
 - Hands-on Modules:
     - Introduction to Command Line: cli/handout/handout.md
