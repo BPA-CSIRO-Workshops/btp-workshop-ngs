@@ -50,7 +50,6 @@ extra_javascript:
 pages:
 - Home: index.md
 - The Trainers: trainers/trainers.md
-- Timetable: timetables/timetable_cancer.md
 - Workshop Information: preamble.md
 
 - Hands-on Modules:
