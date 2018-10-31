@@ -1,15 +1,16 @@
-# Welcome to Cancer Genomics Workshop
+# Welcome to the Introduction to NGS Workshop
 <br>
 
-The Cancer Genomics workshop aims to provide an introduction to cancer genomics analytical pipelines for single nucleotide variations (SNV), copy number variations (CNV) and structural variations (SV).
+The Introduction to NGS Data Analysis is a three-day, hands-on workshop that offers attendees a basic understanding of NGS data analysis workflows. The workshop provides hands-on computational experience in analysis of NGS data using common analytical approaches for ChIP-Seq, RNA-Seq data and de novo genome assembly.
 
 ## Workshop Content
-By the end of the course participants will be able to:<br>
-• Ability to perform NGS alignment and manipulate the output,<br>
-• Consider and plan experimental design, <br>
-• Be able to identify and generate variants (SNV, CNV, SV, Indels), <br>
-• Interpret variants with potential clinical interest,<br>
-• Be able to visualise and present data<br>
+Topics covered by this workshop include:
+* An introduction to the command line interface and NGS file formats
+* Assessment of the quality of NGS sequence reads
+* Sequence alignment algorithms
+* Basic ChIP-Seq analysis
+* Basic RNA-Seq analysis
+* Short and long read de novo genome assembly
 
 This workshop will be delivered using a mixture of lectures, hands-on practical sessions, and open discussions.
 
