@@ -22,3 +22,6 @@
 [submodule "modules/cmd-intro"]
 	path = modules/cmd-intro
 	url = https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-cli.git
+[submodule "modules/qc"]
+	path = modules/qc
+	url = https://github.com/BPA-CSIRO-Workshops/btp-module-ngs-qc.git
